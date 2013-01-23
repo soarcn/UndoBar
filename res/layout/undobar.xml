@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/undobar"
+    style="@style/UndoBar" >
+    <TextView
+        android:id="@+id/undobar_message"
+        style="@style/UndoBarMessage" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:layout_margin="8dp"
+        android:background="@drawable/undobar_divider" />
+    <Button
+        android:id="@+id/undobar_button"
+        style="@style/UndoBarButton" />
+</LinearLayout>
