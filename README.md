@@ -18,5 +18,17 @@ API
 - you can use Undobar by just one line code
 
     UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken, false);
+    
 
 - you can use it as a View (TODO)
+
+
+Contribute
+=======
+
+- feel free to Fork it
+
+
+Other
+=======
+- Works perfect with Crouton/Menudrawer/ABS
