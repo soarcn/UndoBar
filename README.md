@@ -16,6 +16,7 @@ API
 =======
 
 - you can use Undobar by just one line code
-  code: UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken, false);
+
+    UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken, false);
 
 - you can use it as a View (TODO)
