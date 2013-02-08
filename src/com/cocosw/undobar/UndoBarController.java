@@ -28,12 +28,21 @@ import android.view.animation.Animation;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cocosw.undobar.R.drawable;
 import com.cocosw.undobar.R.id;
+import com.cocosw.undobar.R.string;
 
 public class UndoBarController extends LinearLayout {
+
+	public static UndoBarStyle UNDOSTYLE = new UndoBarStyle(
+			drawable.ic_undobar_undo, string.undo);
+
+	public static UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
+			string.retry);
 
 	public interface UndoListener {
 		void onUndo(Parcelable token);
@@ -44,6 +53,8 @@ public class UndoBarController extends LinearLayout {
 	private final Handler mHideHandler = new Handler();
 
 	private UndoListener mUndoListener;
+
+	UndoBarStyle style = UndoBarController.UNDOSTYLE;
 
 	// State objects
 	private Parcelable mUndoToken;
@@ -152,6 +163,15 @@ public class UndoBarController extends LinearLayout {
 		mUndoMessage = message;
 		mMessageView.setText(mUndoMessage);
 
+		if (style != null) {
+			final Button button = (Button) findViewById(id.undobar_button);
+			button.setText(style.titleRes);
+			button.setCompoundDrawables(
+					getResources().getDrawable(style.titleRes), null, null,
+					null);
+			findViewById(id._undobar).setBackgroundResource(style.bgRes);
+		}
+
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable,
 				getResources().getInteger(R.integer.undobar_hide_delay));
@@ -191,7 +211,8 @@ public class UndoBarController extends LinearLayout {
 	 */
 	public static UndoBarController show(final Activity activity,
 			final CharSequence message, final UndoListener listener,
-			final Parcelable undoToken, final boolean immediate) {
+			final Parcelable undoToken, final boolean immediate,
+			final UndoBarStyle style) {
 		final View view = activity.findViewById(id._undobar);
 		UndoBarController undo = null;
 		if (view != null) {
@@ -202,6 +223,7 @@ public class UndoBarController extends LinearLayout {
 			((ViewGroup) activity.findViewById(android.R.id.content))
 					.addView(undo);
 		}
+		undo.style = style;
 		undo.setUndoListener(listener);
 		undo.showUndoBar(immediate, message, undoToken);
 		return undo;
@@ -211,7 +233,19 @@ public class UndoBarController extends LinearLayout {
 			final int message, final UndoListener listener,
 			final Parcelable undoToken, final boolean immediate) {
 		return UndoBarController.show(activity, activity.getText(message),
-				listener, undoToken, immediate);
+				listener, undoToken, immediate, UndoBarController.UNDOSTYLE);
+	}
 
+	public static UndoBarController show(final Activity activity,
+			final CharSequence message, final UndoListener listener,
+			final UndoBarStyle style) {
+		return UndoBarController.show(activity, message, listener, null, false,
+				style);
+	}
+
+	public static UndoBarController show(final Activity activity,
+			final CharSequence message, final UndoListener listener) {
+		return UndoBarController.show(activity, message, listener, null, false,
+				UndoBarController.UNDOSTYLE);
 	}
 }
