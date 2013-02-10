@@ -42,7 +42,7 @@ public class UndoBarController extends LinearLayout {
 			drawable.ic_undobar_undo, string.undo);
 
 	public static UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
-			string.retry);
+			string.retry, -1);
 
 	public interface UndoListener {
 		void onUndo(Parcelable token);
@@ -54,7 +54,7 @@ public class UndoBarController extends LinearLayout {
 
 	private UndoListener mUndoListener;
 
-	UndoBarStyle style = UndoBarController.UNDOSTYLE;
+	private UndoBarStyle style = UndoBarController.UNDOSTYLE;
 
 	// State objects
 	private Parcelable mUndoToken;
@@ -85,58 +85,38 @@ public class UndoBarController extends LinearLayout {
 		hideUndoBar(true);
 	}
 
+	/**
+	 * Get callback listener
+	 * 
+	 * @return
+	 */
 	public UndoListener getUndoListener() {
 		return mUndoListener;
 	}
 
-	public void hideUndoBar(final boolean immediate) {
+	private void hideUndoBar(final boolean immediate) {
 		mHideHandler.removeCallbacks(mHideRunnable);
+		mUndoToken = null;
 		if (immediate) {
 			setVisibility(View.GONE);
-			mUndoMessage = null;
-			mUndoToken = null;
-
 		} else {
 			clearAnimation();
-			startAnimation(UndoBarController
-					.outToBottomAnimation(new android.view.animation.Animation.AnimationListener() {
-
-						@Override
-						public void onAnimationStart(final Animation animation) {
-							// TODO 自动生成的方法存根
-
-						}
-
-						@Override
-						public void onAnimationRepeat(final Animation animation) {
-							// TODO 自动生成的方法存根
-
-						}
-
-						@Override
-						public void onAnimationEnd(final Animation animation) {
-							setVisibility(View.GONE);
-							mUndoMessage = null;
-							mUndoToken = null;
-
-						}
-					}));
-
+			startAnimation(UndoBarController.outToBottomAnimation(null));
+			setVisibility(View.GONE);
 		}
 	}
 
-	public static Animation outToBottomAnimation(
+	private static Animation outToBottomAnimation(
 			final android.view.animation.Animation.AnimationListener animationlistener) {
 		final TranslateAnimation translateanimation = new TranslateAnimation(2,
 				0F, 2, 0F, 2, 0F, 2, 1F);
 		translateanimation.setDuration(500L);
-		translateanimation
-				.setInterpolator(new AnticipateOvershootInterpolator());
+		translateanimation.setInterpolator(new AnticipateOvershootInterpolator(
+				1.0f));
 		translateanimation.setAnimationListener(animationlistener);
 		return translateanimation;
 	}
 
-	//
 	// public void onRestoreInstanceState(final Bundle savedInstanceState) {
 	// if (savedInstanceState != null) {
 	// mUndoMessage = savedInstanceState.getCharSequence("undo_message");
@@ -153,11 +133,11 @@ public class UndoBarController extends LinearLayout {
 	// outState.putParcelable("undo_token", mUndoToken);
 	// }
 
-	public void setUndoListener(final UndoListener mUndoListener) {
+	private void setUndoListener(final UndoListener mUndoListener) {
 		this.mUndoListener = mUndoListener;
 	}
 
-	public void showUndoBar(final boolean immediate,
+	private void showUndoBar(final boolean immediate,
 			final CharSequence message, final Parcelable undoToken) {
 		mUndoToken = undoToken;
 		mUndoMessage = message;
@@ -166,58 +146,55 @@ public class UndoBarController extends LinearLayout {
 		if (style != null) {
 			final Button button = (Button) findViewById(id.undobar_button);
 			button.setText(style.titleRes);
-			button.setCompoundDrawables(
-					getResources().getDrawable(style.titleRes), null, null,
-					null);
+			button.setCompoundDrawablesWithIntrinsicBounds(getResources()
+					.getDrawable(style.iconRes), null, null, null);
 			findViewById(id._undobar).setBackgroundResource(style.bgRes);
 		}
 
 		mHideHandler.removeCallbacks(mHideRunnable);
-		mHideHandler.postDelayed(mHideRunnable,
-				getResources().getInteger(R.integer.undobar_hide_delay));
-		if (getVisibility() != View.VISIBLE) {
-			setVisibility(View.VISIBLE);
-			if (!immediate) {
-				clearAnimation();
-				startAnimation(UndoBarController.inFromBottomAnimation(null));
-			}
+		if (style.duration > 0) {
+			mHideHandler.postDelayed(mHideRunnable, style.duration);
 		}
+		if (!immediate) {
+			clearAnimation();
+			startAnimation(UndoBarController.inFromBottomAnimation(null));
+		}
+		setVisibility(View.VISIBLE);
 	}
 
-	public static Animation inFromBottomAnimation(
+	private static Animation inFromBottomAnimation(
 			final android.view.animation.Animation.AnimationListener animationlistener) {
 		final TranslateAnimation translateanimation = new TranslateAnimation(2,
 				0F, 2, 0F, 2, 1F, 2, 0F);
 		translateanimation.setDuration(500L);
-		translateanimation.setInterpolator(new OvershootInterpolator());
+		translateanimation.setInterpolator(new OvershootInterpolator(1.0f));
 		translateanimation.setAnimationListener(animationlistener);
 		return translateanimation;
 	}
 
 	/**
-	 * Quick method to insert a ShowcaseView into an Activity
+	 * Quick method to insert a UndoBar into an Activity
 	 * 
-	 * @param viewToShowcase
-	 *            View to showcase
 	 * @param activity
-	 *            Activity to insert into
-	 * @param title
-	 *            Text to show as a title. Can be null.
-	 * @param detailText
-	 *            More detailed text. Can be null.
-	 * @param options
-	 *            A set of options to customise the ShowcaseView
-	 * @return the created ShowcaseView instance
+	 *            activity to hold this view
+	 * @param message
+	 *            the message will be shown in left side in undobar
+	 * @param listener
+	 *            callback listener triggered after click undobar
+	 * @param undoToken
+	 *            Token info,will pass to callback to help you to undo
+	 * @param immediate
+	 *            show undobar immediately or show it with animation(duration is
+	 *            0.5s)
+	 * @param style
+	 *            {@link UndoBarStyle}
+	 * @return
 	 */
 	public static UndoBarController show(final Activity activity,
 			final CharSequence message, final UndoListener listener,
 			final Parcelable undoToken, final boolean immediate,
 			final UndoBarStyle style) {
-		final View view = activity.findViewById(id._undobar);
-		UndoBarController undo = null;
-		if (view != null) {
-			undo = (UndoBarController) view.getParent();
-		}
+		UndoBarController undo = UndoBarController.getView(activity);
 		if (undo == null) {
 			undo = new UndoBarController(activity, null);
 			((ViewGroup) activity.findViewById(android.R.id.content))
@@ -226,6 +203,15 @@ public class UndoBarController extends LinearLayout {
 		undo.style = style;
 		undo.setUndoListener(listener);
 		undo.showUndoBar(immediate, message, undoToken);
+		return undo;
+	}
+
+	private static UndoBarController getView(final Activity activity) {
+		final View view = activity.findViewById(id._undobar);
+		UndoBarController undo = null;
+		if (view != null) {
+			undo = (UndoBarController) view.getParent();
+		}
 		return undo;
 	}
 
@@ -247,5 +233,17 @@ public class UndoBarController extends LinearLayout {
 			final CharSequence message, final UndoListener listener) {
 		return UndoBarController.show(activity, message, listener, null, false,
 				UndoBarController.UNDOSTYLE);
+	}
+
+	/**
+	 * hide all undo bar immediately
+	 * 
+	 * @param activity
+	 */
+	public static void clear(final Activity activity) {
+		final UndoBarController v = UndoBarController.getView(activity);
+		if (v != null) {
+			v.setVisibility(View.GONE);
+		}
 	}
 }
