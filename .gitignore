@@ -7,7 +7,6 @@ out
 *.ipr
 *.properties
 build.xml
-
 target
-
 .idea
+
