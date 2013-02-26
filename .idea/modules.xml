@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/undobar.iml" filepath="$PROJECT_DIR$/undobar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UndoBar.iml" filepath="$PROJECT_DIR$/UndoBar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libary/libary.iml" filepath="$PROJECT_DIR$/libary/libary.iml" />
     </modules>
   </component>
 </project>
