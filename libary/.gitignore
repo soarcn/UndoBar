@@ -1,9 +1,0 @@
-.DS_Store
-gen
-bin
-out
-*.iml
-*.iws
-*.ipr
-*.properties
-build.xml

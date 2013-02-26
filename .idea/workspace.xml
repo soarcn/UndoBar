@@ -1,45 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fbffba7d-3ff8-4854-888a-ed0ea9f80303" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\.project" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\README.md" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\.classpath" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\.project" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\art\screen.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\art\undobar.9.psd" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\art\undobar.psd" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\libary\art\undobar_button_selector.psd" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\ic_retry.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\ic_undobar_undo.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\undobar.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\undobar_button_focused.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\undobar_button_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable-xhdpi\undobar_divider.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\drawable\undobar_button.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\layout\undobar.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\values-zh\string.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\values\string.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\res\values\styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\src\com\cocosw\undobar\UndoBarController.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\andriod\workspace\COCO\UndoBar\src\com\cocosw\undobar\UndoBarStyle.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.ap_" afterPath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.apklib" afterPath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.apklib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/libary/target/libary-0.1-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/BuildConfig.java" afterPath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/Manifest.java" afterPath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/Manifest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/R.java" afterPath="$PROJECT_DIR$/libary/target/generated-sources/r/com/cocosw/undobar/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UndoBar.iml" afterPath="$PROJECT_DIR$/UndoBar.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libary/pom.xml" afterPath="$PROJECT_DIR$/libary/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="fbffba7d-3ff8-4854-888a-ed0ea9f80303" name="Default" comment="" />
     <ignored path="undobar.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="fbffba7d-3ff8-4854-888a-ed0ea9f80303" time="1361868917406" ignored="false" />
@@ -399,7 +361,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -418,7 +380,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33333334" sideWeight="0.6710963" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.6710963" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32890365" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32890365" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
