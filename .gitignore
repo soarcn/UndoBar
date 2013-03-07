@@ -9,4 +9,5 @@ out
 build.xml
 target
 .idea
-
+.classpath
+.project

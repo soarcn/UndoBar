@@ -18,6 +18,7 @@ package com.cocosw.undobar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -75,10 +76,10 @@ public class UndoBarController extends LinearLayout {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(final View view) {
-						hideUndoBar(false);
 						if (mUndoListener != null) {
 							mUndoListener.onUndo(mUndoToken);
 						}
+						hideUndoBar(false);
 					}
 				});
 
@@ -117,21 +118,24 @@ public class UndoBarController extends LinearLayout {
 		return translateanimation;
 	}
 
-	// public void onRestoreInstanceState(final Bundle savedInstanceState) {
-	// if (savedInstanceState != null) {
-	// mUndoMessage = savedInstanceState.getCharSequence("undo_message");
-	// mUndoToken = savedInstanceState.getParcelable("undo_token");
-	//
-	// if (mUndoToken != null || !TextUtils.isEmpty(mUndoMessage)) {
-	// showUndoBar(true, mUndoMessage, mUndoToken);
-	// }
-	// }
-	// }
-	//
-	// public void onSaveInstanceState(final Bundle outState) {
-	// outState.putCharSequence("undo_message", mUndoMessage);
-	// outState.putParcelable("undo_token", mUndoToken);
-	// }
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		final Bundle outState = new Bundle();
+		outState.putCharSequence("undo_message", mUndoMessage);
+		outState.putParcelable("undo_token", mUndoToken);
+		return outState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(final Parcelable state) {
+		if (state instanceof Bundle) {
+			final Bundle bundle = (Bundle) state;
+			mUndoMessage = bundle.getCharSequence("undo_message");
+			mUndoToken = bundle.getParcelable("undo_token");
+			return;
+		}
+		super.onRestoreInstanceState(state);
+	}
 
 	private void setUndoListener(final UndoListener mUndoListener) {
 		this.mUndoListener = mUndoListener;
