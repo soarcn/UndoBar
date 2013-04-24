@@ -45,6 +45,8 @@ public class UndoBarController extends LinearLayout {
 	public static UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
 			string.retry, -1);
 
+	public static UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+
 	public interface UndoListener {
 		void onUndo(Parcelable token);
 	}
@@ -68,7 +70,7 @@ public class UndoBarController extends LinearLayout {
 		}
 	};
 
-	public UndoBarController(final Context context, final AttributeSet attrs) {
+	private UndoBarController(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		LayoutInflater.from(context).inflate(R.layout.undobar, this, true);
 		mMessageView = (TextView) findViewById(R.id.undobar_message);
@@ -149,9 +151,14 @@ public class UndoBarController extends LinearLayout {
 
 		if (style != null) {
 			final Button button = (Button) findViewById(id.undobar_button);
-			button.setText(style.titleRes);
-			button.setCompoundDrawablesWithIntrinsicBounds(getResources()
-					.getDrawable(style.iconRes), null, null, null);
+			if (style.titleRes > 0) {
+				button.setText(style.titleRes);
+				button.setCompoundDrawablesWithIntrinsicBounds(getResources()
+						.getDrawable(style.iconRes), null, null, null);
+			} else {
+				button.setVisibility(View.GONE);
+				findViewById(id.undobar_divider).setVisibility(View.GONE);
+			}
 			findViewById(id._undobar).setBackgroundResource(style.bgRes);
 		}
 
@@ -228,6 +235,13 @@ public class UndoBarController extends LinearLayout {
 
 	public static UndoBarController show(final Activity activity,
 			final CharSequence message, final UndoListener listener,
+			final Parcelable undoToken) {
+		return UndoBarController.show(activity, message, listener, undoToken,
+				false, UndoBarController.UNDOSTYLE);
+	}
+
+	public static UndoBarController show(final Activity activity,
+			final CharSequence message, final UndoListener listener,
 			final UndoBarStyle style) {
 		return UndoBarController.show(activity, message, listener, null, false,
 				style);
@@ -237,6 +251,12 @@ public class UndoBarController extends LinearLayout {
 			final CharSequence message, final UndoListener listener) {
 		return UndoBarController.show(activity, message, listener, null, false,
 				UndoBarController.UNDOSTYLE);
+	}
+
+	public static UndoBarController show(final Activity activity,
+			final CharSequence message) {
+		return UndoBarController.show(activity, message, null, null, false,
+				UndoBarController.MESSAGESTYLE);
 	}
 
 	/**

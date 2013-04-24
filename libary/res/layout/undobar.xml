@@ -6,6 +6,7 @@
         android:id="@+id/undobar_message"
         style="@style/UndoBarMessage" />
     <View
+        android:id="@+id/undobar_divider"
         android:layout_width="1dp"
         android:layout_height="fill_parent"
         android:layout_marginBottom="8dp"
