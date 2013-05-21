@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cocosw</groupId>
     <artifactId>UndoBar-Parent</artifactId>
-    <version>0.3</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -30,9 +30,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:git://github.com:soarcn/UndoBar.git</connection>
+        <connection>scm:git:git@github.com:soarcn/UndoBar.git</connection>
         <developerConnection>scm:git:git@github.com:soarcn/UndoBar.git</developerConnection>
-        <url>https://github.com/soarcn/UndoBar</url>
+        <url>git@github.com:soarcn/UndoBar.git</url>
     </scm>
 
 
@@ -131,8 +131,8 @@
                 <version>2.2.2</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <username>${git.username}</username>
-                    <password>${git.password}</password>
+                    <!--<username>${git.username}</username>-->
+                    <!--<password>${git.password}</password>-->
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
                 </configuration>
             </plugin>
