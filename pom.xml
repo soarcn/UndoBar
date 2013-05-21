@@ -5,6 +5,9 @@
     <artifactId>UndoBar-Parent</artifactId>
     <version>0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>UndoBar</name>
+    <description>UndoBar Pattern implementation for android 2.x</description>
+    <url>https://github.com/soarcn/UndoBar</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -132,6 +135,7 @@
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                    <workingDirectory>build</workingDirectory>
                 </configuration>
             </plugin>
         </plugins>
