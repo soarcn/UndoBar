@@ -131,8 +131,8 @@
                 <version>2.2.2</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <username>${git.username}</username>
-                    <password>${git.password}</password>
+                    <!--<username>${git.username}</username>-->
+                    <!--<password>${git.password}</password>-->
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
                 </configuration>
             </plugin>
