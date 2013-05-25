@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.cocosw</groupId>
-    <artifactId>example</artifactId>
+    <artifactId>undobar-example</artifactId>
     <packaging>apk</packaging>
     <name>UndoBar Sample</name>
 
