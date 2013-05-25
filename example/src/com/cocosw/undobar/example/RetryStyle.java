@@ -43,7 +43,7 @@ public class RetryStyle extends FragmentActivity implements UndoListener,
 
 			@Override
 			public Void loadData() throws Exception {
-				Thread.sleep(3000);
+				Thread.sleep(1500);
 				throw new Exception("Oops! something wrong.");
 			}
 		};
