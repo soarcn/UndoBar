@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,9 @@ public class UndoBarController extends LinearLayout {
 	}
 
 	private final TextView mMessageView;
-
+    private final TextView mButton;
 	private final Handler mHideHandler = new Handler();
-
 	private UndoListener mUndoListener;
-
 	private UndoBarStyle style = UndoBarController.UNDOSTYLE;
 
 	// State objects
@@ -74,16 +73,17 @@ public class UndoBarController extends LinearLayout {
 		super(context, attrs);
 		LayoutInflater.from(context).inflate(R.layout.undobar, this, true);
 		mMessageView = (TextView) findViewById(R.id.undobar_message);
-		findViewById(R.id.undobar_button).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(final View view) {
-						if (mUndoListener != null) {
-							mUndoListener.onUndo(mUndoToken);
-						}
-						hideUndoBar(false);
-					}
-				});
+        mButton = (TextView) findViewById(id.undobar_button);
+        mButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        if (mUndoListener != null) {
+                            mUndoListener.onUndo(mUndoToken);
+                        }
+                        hideUndoBar(false);
+                    }
+                });
 
 		hideUndoBar(true);
 	}
@@ -150,13 +150,14 @@ public class UndoBarController extends LinearLayout {
 		mMessageView.setText(mUndoMessage);
 
 		if (style != null) {
-			final Button button = (Button) findViewById(id.undobar_button);
 			if (style.titleRes > 0) {
-				button.setText(style.titleRes);
-				button.setCompoundDrawablesWithIntrinsicBounds(getResources()
+                mButton.setVisibility(View.VISIBLE);
+                findViewById(id.undobar_divider).setVisibility(View.VISIBLE);
+                mButton.setText(style.titleRes);
+                mButton.setCompoundDrawablesWithIntrinsicBounds(getResources()
 						.getDrawable(style.iconRes), null, null, null);
 			} else {
-				button.setVisibility(View.GONE);
+                mButton.setVisibility(View.GONE);
 				findViewById(id.undobar_divider).setVisibility(View.GONE);
 			}
 			findViewById(id._undobar).setBackgroundResource(style.bgRes);
@@ -187,16 +188,15 @@ public class UndoBarController extends LinearLayout {
 	 * Quick method to insert a UndoBar into an Activity
 	 * 
 	 * @param activity
-	 *            activity to hold this view
+	 *            Activity to hold this view
 	 * @param message
-	 *            the message will be shown in left side in undobar
+	 *            The message will be shown in left side in undobar
 	 * @param listener
-	 *            callback listener triggered after click undobar
+	 *            Callback listener triggered after click undobar
 	 * @param undoToken
 	 *            Token info,will pass to callback to help you to undo
 	 * @param immediate
-	 *            show undobar immediately or show it with animation(duration is
-	 *            0.5s)
+	 *            Show undobar immediately or show it with animation
 	 * @param style
 	 *            {@link UndoBarStyle}
 	 * @return

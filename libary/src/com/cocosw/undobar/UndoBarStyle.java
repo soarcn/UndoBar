@@ -25,4 +25,13 @@ public class UndoBarStyle {
 		bgRes = bg;
 	}
 
+    @Override
+    public String toString() {
+        return "UndoBarStyle{" +
+                "iconRes=" + iconRes +
+                ", titleRes=" + titleRes +
+                ", bgRes=" + bgRes +
+                ", duration=" + duration +
+                '}';
+    }
 }
