@@ -16,7 +16,7 @@ import com.github.kevinsawicki.wishlist.ThrowableLoader;
 /**
  * RetryStyle demo
  * 
- * Thanks Kevinsawicki's wishlist lib, please check more from github
+ * Thanks Kevinsawicki for his wishlist lib, please check more from github
  * 
  * @author soar
  * 

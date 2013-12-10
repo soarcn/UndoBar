@@ -6,7 +6,7 @@
     <version>0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>UndoBar</name>
-    <description>UndoBar Pattern implementation for android 2.x</description>
+    <description>UndoBar Pattern implementation for android 2.x +</description>
     <url>https://github.com/soarcn/UndoBar</url>
 
     <properties>

@@ -12,3 +12,5 @@ target
 .classpath
 .project
 /res
+build
+/.gradle
