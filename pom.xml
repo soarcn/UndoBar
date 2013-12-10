@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cocosw</groupId>
     <artifactId>UndoBar-Parent</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.4</version>
     <packaging>pom</packaging>
     <name>UndoBar</name>
     <description>UndoBar Pattern implementation for android 2.x +</description>
@@ -36,7 +36,7 @@
         <connection>scm:git:git@github.com:soarcn/UndoBar.git</connection>
         <developerConnection>scm:git:git@github.com:soarcn/UndoBar.git</developerConnection>
         <url>git@github.com:soarcn/UndoBar.git</url>
-      <tag>HEAD</tag>
+      <tag>UndoBar-Parent-0.4</tag>
   </scm>
 
 
