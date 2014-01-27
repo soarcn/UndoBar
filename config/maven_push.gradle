@@ -85,12 +85,12 @@ afterEvaluate { project ->
                 }
             }
 
-            mavenDeployer {
-                configurePOM(pom)
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: githubRepositoryUrl)
-            }
+//            mavenDeployer {
+//                configurePOM(pom)
+//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//                repository(url: githubRepositoryUrl)
+//            }
         }
     }
 
