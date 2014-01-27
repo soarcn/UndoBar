@@ -13,16 +13,24 @@ How to use this libary
 =======
 
 - Download this libary, import to your IDE (eclipse...) as libary project.
-- You can also depend on the .jar through Maven:
+- Using Gradle(from 0.5):
 
+```xml
+compile 'com.cocosw:undobar:0.5@aar'
+```
+
+- Using Maven(<0.4)
 ```xml
 <dependency>
     <groupId>com.cocosw</groupId>
     <artifactId>undobar</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <type>apklib</type>
 </dependency>
 ```
+
+
+
 
 API
 =======
