@@ -2,6 +2,8 @@ package com.cocosw.undobar;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.animation.Animation;
+
 import com.cocosw.undobar.R.drawable;
 
 public class UndoBarStyle implements Parcelable {
@@ -12,6 +14,9 @@ public class UndoBarStyle implements Parcelable {
     int titleRes;
     int bgRes = drawable.undobar;
     long duration = DEFAULT_DURATION;
+    Animation inAnimation;
+    Animation outAnimation;
+
 
     public UndoBarStyle(final int icon, final int title) {
         iconRes = icon;
@@ -36,13 +41,15 @@ public class UndoBarStyle implements Parcelable {
                 ", titleRes=" + titleRes +
                 ", bgRes=" + bgRes +
                 ", duration=" + duration +
+                ", inAnimation=" + inAnimation +
+                ", outAnimation=" + outAnimation +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
 
         UndoBarStyle that = (UndoBarStyle) o;
 
@@ -53,10 +60,11 @@ public class UndoBarStyle implements Parcelable {
 
     }
 
-        /*
-         * Parcelable-related methods.
-         */
 
+
+    /*
+    * Parcelable-related methods.
+    */
     public UndoBarStyle(Parcel source) {
         iconRes = source.readInt();
         titleRes = source.readInt();
