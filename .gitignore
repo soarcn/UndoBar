@@ -5,7 +5,6 @@ out
 *.iml
 *.iws
 *.ipr
-*.properties
 build.xml
 target
 .idea
@@ -14,3 +13,6 @@ target
 /res
 build
 /.gradle
+project.properties
+release.properties
+local.properties

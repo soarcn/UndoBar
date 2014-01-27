@@ -1,19 +1,16 @@
-import com.android.builder.BuilderConstants;
 
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
-    }
-}
-
-apply plugin: 'android-library'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply from: '../config/android-library.gradle'
+apply from: '../config/maven_push.gradle'
 
 dependencies {
+
 }
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.0'
+    buildToolsVersion '19.0.1'
 
     sourceSets {
         main {
@@ -29,14 +26,4 @@ android {
     }
 }
 
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-    if (!BuilderConstants.DEBUG.equals(name)) {
-        def task = project.tasks.create "jar${name.capitalize()}", Jar
-        task.dependsOn variant.javaCompile
-        task.from variant.javaCompile.destinationDir
-        artifacts.add('archives', task);
-    }
-}
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
