@@ -20,6 +20,7 @@ compile 'com.cocosw:undobar:0.5@aar'
 ```
 
 - Using Maven(<0.4)
+
 ```xml
 <dependency>
     <groupId>com.cocosw</groupId>
