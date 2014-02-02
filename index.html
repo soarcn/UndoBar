@@ -31,41 +31,76 @@
         <hr>
 
         <section id="main_content">
-          <h1>UndoBar</h1>
+          <h1>
+<a name="undobar" class="anchor" href="#undobar"><span class="octicon octicon-link"></span></a>UndoBar</h1>
 
-<p>The UI component for Android advanced UI pattern undo-bar, used in Gmail app, create by roman nurik</p>
+<p>This is a implementation for Android advanced UI pattern undo-bar, used in Gmail app, create by roman nurik</p>
 
-<p>UndoBar was modify from Roman(<a href="https://github.com/romannurik" class="user-mention">@romannurik</a>)'s undobar concept (<a href="https://code.google.com/p/romannurik-code/">https://code.google.com/p/romannurik-code/</a>), I backport it to Android 2.x and make it easier to use</p>
+<p>UndoBar was modify from Roman(<a href="https://github.com/romannurik" class="user-mention">@romannurik</a>)'s undobar concept (<a href="https://code.google.com/p/romannurik-code/">https://code.google.com/p/romannurik-code/</a>), and backport it to Android 2.x and make it easier to use</p>
 
 <p><img src="https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true" alt="UndoBar Sample"></p>
 
-<h1>How to use this libary</h1>
+<h1>
+<a name="how-to-use-this-libary" class="anchor" href="#how-to-use-this-libary"><span class="octicon octicon-link"></span></a>How to use this libary</h1>
 
 <ul>
-<li>Download this libary, import to your IDE (eclipse...) as libary project</li>
-</ul><h1>API</h1>
-
-<ul>
-<li>You can use UndoBar by just one line code</li>
-</ul><div class="highlight"><pre>    <span class="n">UndoBarController</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="s">"Undo-bar title"</span> <span class="o">,</span> <span class="n">listener</span><span class="o">,</span> <span class="n">undoToken</span><span class="o">);</span>
+<li>Download this libary, import to your IDE (eclipse...) as libary project.</li>
+<li>Using Gradle(from 0.5):</li>
+</ul><div class="highlight highlight-xml"><pre>compile 'com.cocosw:undobar:0.5@aar'
 </pre></div>
 
 <ul>
-<li>UndoBar support customize style with backgroud/icon/duration attribution. libary provide 3 Style as default, you can use in different purpose like Undo ,Refresh, or just use it as replacement of Toster</li>
-</ul><h1>Contribute</h1>
+<li>Using Maven(&lt;0.4)</li>
+</ul><div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.cocosw<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>undobar<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.4<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<h1>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h1>
+
+<ul>
+<li>You can use UndoBar by just one line code</li>
+</ul><div class="highlight highlight-java"><pre>    <span class="n">UndoBarController</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="s">"Undo-bar title"</span> <span class="o">,</span> <span class="n">listener</span><span class="o">,</span> <span class="n">undoToken</span><span class="o">);</span>
+</pre></div>
+
+<ul>
+<li>UndoBar support customize style with backgroud/icon/duration attribution. libary provide 3 Style as default, you can use in different purpose like Undo,Refresh, or just use it as replacement of Toster</li>
+</ul><h1>
+<a name="contribute" class="anchor" href="#contribute"><span class="octicon octicon-link"></span></a>Contribute</h1>
 
 <ul>
 <li>Feel free to fork it</li>
-</ul><h1>Other</h1>
+</ul><h1>
+<a name="other" class="anchor" href="#other"><span class="octicon octicon-link"></span></a>Other</h1>
 
 <ul>
 <li>Works perfect with Crouton/Menudrawer/ABS</li>
-</ul>
+</ul><h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<pre><code>Copyright 2011, 2012 Liao Kai
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
         </section>
 
         <footer>
           Undobar is maintained by <a href="https://github.com/soarcn">soarcn</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
         </footer>
 
         
