@@ -61,19 +61,19 @@
 
     <!-- KitKat styles. -->
 
-    <style name="UndoBarKitKat" parent="UndoBar">
+    <style name="UndoBarKitKat" parent="UndoBarClassic">
         <item name="android:background">@drawable/toast_frame_holo</item>
         <item name="android:padding">0.0dip</item>
     </style>
 
 
-    <style name="UndoBarButtonKitKat" parent="UndoBarButton">
+    <style name="UndoBarButtonKitKat" parent="UndoBarButtonClassic">
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/toast_frame_holo_button</item>
     </style>
 
 
-    <style name="UndoBarMessageKitKat" parent="UndoBarMessage">
+    <style name="UndoBarMessageKitKat" parent="UndoBarMessageClassic">
         <item name="android:shadowColor">#bb000000</item>
         <item name="android:shadowRadius">2.75</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
