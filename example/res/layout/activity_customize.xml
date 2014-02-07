@@ -11,11 +11,12 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You can create you own style for UndoBar,like backgroud."
+        android:text="You can create you own style for UndoBar,like backgroud and in/out animation."
         android:textSize="20sp" />
     <Button
+        android:layout_marginTop="16dp"
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
