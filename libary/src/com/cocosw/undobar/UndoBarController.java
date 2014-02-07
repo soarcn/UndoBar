@@ -44,6 +44,8 @@ public class UndoBarController extends LinearLayout {
     public static UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
             string.retry, -1);
     public static UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+    private static Animation inAnimation = inFromBottomAnimation(null);
+    private static Animation outAnimation = outToBottomAnimation(null);
     private final TextView mMessageView;
     private final TextView mButton;
     private final Handler mHideHandler = new Handler();
@@ -54,9 +56,6 @@ public class UndoBarController extends LinearLayout {
         }
     };
     private UndoListener mUndoListener;
-    private Animation inAnimation = inFromBottomAnimation(null);
-    private Animation outAnimation = outToBottomAnimation(null);
-
     // State objects
     private Parcelable mUndoToken;
 
@@ -186,6 +185,19 @@ public class UndoBarController extends LinearLayout {
     }
 
     /**
+     * Change the default In/Out animation
+     *
+     * @param inAnimation
+     * @param outAnimation
+     */
+    public static void setAnimation(Animation inAnimation, Animation outAnimation) {
+        if (inAnimation != null)
+            UndoBarController.inAnimation = inAnimation;
+        if (outAnimation != null)
+            UndoBarController.outAnimation = outAnimation;
+    }
+
+    /**
      * Get callback listener
      *
      * @return
@@ -205,7 +217,7 @@ public class UndoBarController extends LinearLayout {
             setVisibility(View.GONE);
         } else {
             clearAnimation();
-            if (style.outAnimation!=null)
+            if (style.outAnimation != null)
                 startAnimation(style.outAnimation);
             else
                 startAnimation(outAnimation);
@@ -243,7 +255,7 @@ public class UndoBarController extends LinearLayout {
             mButton.setVisibility(View.VISIBLE);
             findViewById(id.undobar_divider).setVisibility(View.VISIBLE);
             mButton.setText(style.titleRes);
-            if (style.iconRes>0) {
+            if (style.iconRes > 0) {
                 mButton.setCompoundDrawablesWithIntrinsicBounds(getResources()
                         .getDrawable(style.iconRes), null, null, null);
             }
@@ -251,7 +263,8 @@ public class UndoBarController extends LinearLayout {
             mButton.setVisibility(View.GONE);
             findViewById(id.undobar_divider).setVisibility(View.GONE);
         }
-        findViewById(id._undobar).setBackgroundResource(style.bgRes);
+        if (style.bgRes > 0)
+            findViewById(id._undobar).setBackgroundResource(style.bgRes);
 
         mHideHandler.removeCallbacks(mHideRunnable);
         if (style.duration > 0) {
@@ -259,7 +272,7 @@ public class UndoBarController extends LinearLayout {
         }
         if (!immediate) {
             clearAnimation();
-            if (style.inAnimation!=null)
+            if (style.inAnimation != null)
                 startAnimation(style.inAnimation);
             else
                 startAnimation(inAnimation);

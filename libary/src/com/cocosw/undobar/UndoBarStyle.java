@@ -12,27 +12,59 @@ public class UndoBarStyle implements Parcelable {
 
     int iconRes;
     int titleRes;
-    int bgRes = drawable.undobar;
+    int bgRes;
     long duration = DEFAULT_DURATION;
     Animation inAnimation;
     Animation outAnimation;
 
 
+    /**
+     * UndoBar Style
+     * @param icon icon for the button right side
+     * @param title  title for the button right side
+     */
     public UndoBarStyle(final int icon, final int title) {
         iconRes = icon;
         titleRes = title;
     }
 
+    /**
+     * UndoBar Style
+     * @param icon icon for the button right side
+     * @param title  title for the button right side
+     * @param duration duration the undobar will stay in screen
+     */
     public UndoBarStyle(final int icon, final int title, final long duration) {
         this(icon, title);
         this.duration = duration;
     }
 
+    /**
+     *
+     * UndoBar Style
+     * @param icon icon for the button right side
+     * @param title  title for the button right side
+     * @param duration duration the undobar will stay in screen
+     * @param bg background image for undobar
+     */
     public UndoBarStyle(final int icon, final int title, final int bg,
                         final long duration) {
         this(icon, title, duration);
         bgRes = bg;
     }
+
+    /**
+     * Set Animation for current style
+     * @param inAnimation
+     * @param outAnimation
+     * @return
+     */
+    public UndoBarStyle setAnim(Animation inAnimation,Animation outAnimation) {
+        this.inAnimation = inAnimation;
+        this.outAnimation = outAnimation;
+        return this;
+    }
+
 
     @Override
     public String toString() {
