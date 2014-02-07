@@ -3,34 +3,31 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Undobar by soarcn</title>
+
+    <title>UndoBar by soarcn</title>
   </head>
 
   <body>
-    <div id="container">
+    <header>
       <div class="inner">
+        <h1>UndoBar</h1>
+        <h2>The UI component for Android advanced UI pattern undo bar, used in Gmail app, created by roman nurik</h2>
+        <a href="https://github.com/soarcn/UndoBar" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-        <header>
-          <h1>Undobar</h1>
-          <h2>The UI component for Android advanced UI pattern undo-bar, used in Gmail app, create by roman nurik</h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/soarcn/UndoBar/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/soarcn/UndoBar/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/soarcn/UndoBar" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
           <h1>
 <a name="undobar" class="anchor" href="#undobar"><span class="octicon octicon-link"></span></a>UndoBar</h1>
 
@@ -38,7 +35,7 @@
 
 <p>UndoBar was modify from Roman(<a href="https://github.com/romannurik" class="user-mention">@romannurik</a>)'s undobar concept (<a href="https://code.google.com/p/romannurik-code/">https://code.google.com/p/romannurik-code/</a>), and backport it to Android 2.x and make it easier to use</p>
 
-<p><img src="https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true" alt="UndoBar Sample"></p>
+<p><img src="https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true" alt="UndoBar Sample"></p>
 
 <h1>
 <a name="how-to-use-this-libary" class="anchor" href="#how-to-use-this-libary"><span class="octicon octicon-link"></span></a>How to use this libary</h1>
@@ -46,7 +43,7 @@
 <ul>
 <li>Download this libary, import to your IDE (eclipse...) as libary project.</li>
 <li>Using Gradle(from 0.5):</li>
-</ul><div class="highlight highlight-xml"><pre>compile 'com.cocosw:undobar:0.5@aar'
+</ul><div class="highlight highlight-xml"><pre>compile 'com.cocosw:undobar:0.6@aar'
 </pre></div>
 
 <ul>
@@ -68,8 +65,15 @@
 </pre></div>
 
 <ul>
-<li>UndoBar support customize style with backgroud/icon/duration attribution. libary provide 3 Style as default, you can use in different purpose like Undo,Refresh, or just use it as replacement of Toster</li>
-</ul><h1>
+<li>UndoBar support customize style with background/icon/duration/animation attribution. library provides 3 default styles. You can use them in different purpose like undo,refresh, or just use it as replacement of Toaster</li>
+<li>UndoBar will switch to KitKat look and feel in API-19 target.</li>
+<li>You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.</li>
+</ul><div class="highlight highlight-xml"><pre>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBar"</span> <span class="na">parent=</span><span class="s">"UndoBarKitKat"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBarMessage"</span> <span class="na">parent=</span><span class="s">"UndoBarMessageKitKat"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBarButton"</span> <span class="na">parent=</span><span class="s">"UndoBarButtonKitKat"</span><span class="nt">/&gt;</span>
+</pre></div>
+
+<h1>
 <a name="contribute" class="anchor" href="#contribute"><span class="octicon octicon-link"></span></a>Contribute</h1>
 
 <ul>
@@ -78,7 +82,7 @@
 <a name="other" class="anchor" href="#other"><span class="octicon octicon-link"></span></a>Other</h1>
 
 <ul>
-<li>Works perfect with Crouton/Menudrawer/ABS</li>
+<li>Works perfectly with Crouton/Menudrawer/ABS</li>
 </ul><h1>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
 
@@ -98,13 +102,23 @@ limitations under the License.
 </code></pre>
         </section>
 
-        <footer>
-          Undobar is maintained by <a href="https://github.com/soarcn">soarcn</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+        <aside id="sidebar">
+          <a href="https://github.com/soarcn/UndoBar/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/soarcn/UndoBar/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
 
-        
+          <p class="repo-owner"><a href="https://github.com/soarcn/UndoBar"></a> is maintained by <a href="https://github.com/soarcn">soarcn</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
       </div>
     </div>
+
+  
   </body>
 </html>
