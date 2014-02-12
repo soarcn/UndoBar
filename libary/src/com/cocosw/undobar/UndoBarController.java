@@ -110,23 +110,28 @@ public class UndoBarController extends LinearLayout {
      * @param undoToken Token info,will pass to callback to help you to undo
      * @param immediate Show undobar immediately or show it with animation
      * @param style     {@link UndoBarStyle}
-     * @return
+     * @return UndoBarController
      */
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener,
                                          final Parcelable undoToken, final boolean immediate,
                                          final UndoBarStyle style) {
+        UndoBarController undo = ensureView(activity);
+        if (style == null)
+            throw new IllegalArgumentException("style must not be empty.");
+        undo.style = style;
+        undo.setUndoListener(listener);
+        undo.showUndoBar(immediate, message, undoToken);
+        return undo;
+    }
+
+    private static UndoBarController ensureView(Activity activity) {
         UndoBarController undo = UndoBarController.getView(activity);
         if (undo == null) {
             undo = new UndoBarController(activity, null);
             ((ViewGroup) activity.findViewById(android.R.id.content))
                     .addView(undo);
         }
-        if (style == null)
-            throw new IllegalArgumentException("style must not be empty.");
-        undo.style = style;
-        undo.setUndoListener(listener);
-        undo.showUndoBar(immediate, message, undoToken);
         return undo;
     }
 
@@ -226,19 +231,25 @@ public class UndoBarController extends LinearLayout {
     }
 
     @Override
-    protected Parcelable onSaveInstanceState() {
+    public Parcelable onSaveInstanceState() {
         final Bundle outState = new Bundle();
         outState.putCharSequence("undo_message", mUndoMessage);
         outState.putParcelable("undo_token", mUndoToken);
+        outState.putParcelable("undo_style", style);
+        outState.putInt("visible", getVisibility());
         return outState;
     }
 
+
     @Override
-    protected void onRestoreInstanceState(final Parcelable state) {
+    public void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             mUndoMessage = bundle.getCharSequence("undo_message");
             mUndoToken = bundle.getParcelable("undo_token");
+            style = bundle.getParcelable("undo_style");
+            if (bundle.getInt("visible") == View.VISIBLE)
+                showUndoBar(true, mUndoMessage, mUndoToken);
             return;
         }
         super.onRestoreInstanceState(state);
@@ -282,5 +293,124 @@ public class UndoBarController extends LinearLayout {
 
     public interface UndoListener {
         void onUndo(Parcelable token);
+    }
+
+//    /**
+//     * This interface mush be called in activity onCreate if you want to keep UndoBar state without putting UndoBar in your view layout
+//     *
+//     *
+//     * @param act
+//     */
+//    public static void onCreateActivity(Activity act) {
+//        ensureView(act);
+//    }
+
+    /**
+     * UndoBar Builder
+     */
+    public static class UndoBar {
+
+        private final Activity activity;
+        private UndoBarStyle style;
+        private CharSequence message;
+        private long duration;
+        private Parcelable undoToken;
+        private UndoListener listener;
+
+        public UndoBar(Activity activity) {
+            this.activity = activity;
+        }
+
+        public UndoBar style(UndoBarStyle style) {
+            this.style = style;
+            return this;
+        }
+
+        /**
+         * Set the message to be displayed on the left of the undobar.
+         *
+         * @param message message
+         * @return
+         */
+        public UndoBar message(CharSequence message) {
+            this.message = message;
+            return this;
+        }
+
+        /**
+         * Set the message to be displayed on the left of the undobar.
+         *
+         * @param messageRes
+         * @return
+         */
+        public UndoBar message(int messageRes) {
+            this.message = activity.getText(messageRes);
+            return this;
+        }
+
+        /**
+         * Sets the duration the undo bar will be shown.<br>
+         * Default is defined in style
+         *
+         * @param duraton
+         * @return
+         */
+        public UndoBar duration(long duraton) {
+            this.duration = duraton;
+            return this;
+        }
+
+        /**
+         * Sets the listener which will be trigger when button been clicked.
+         *
+         * @param mUndoListener
+         * @return
+         */
+        public UndoBar listener(UndoListener mUndoListener) {
+            this.listener = mUndoListener;
+            return this;
+        }
+
+
+        /**
+         * Sets a token for undobar which will be returned in listener
+         *
+         * @param undoToken
+         * @return
+         */
+        public UndoBar token(Parcelable undoToken) {
+            this.undoToken = undoToken;
+            return this;
+        }
+
+
+        /**
+         * Show undobar with animation or not
+         *
+         * @param anim show animation or not
+         * @return
+         */
+        public UndoBarController show(boolean anim) {
+            if (listener == null && style == null) {
+                style = MESSAGESTYLE;
+            }
+            if (style == null)
+                style = UNDOSTYLE;
+            if (message == null)
+                message = "";
+            if (duration > 0) {
+                style.duration = duration;
+            }
+            return UndoBarController.show(activity, message, listener, undoToken, !anim, style);
+        }
+
+        /**
+         * Show undobar with animation
+         *
+         * @return
+         */
+        public UndoBarController show() {
+            return show(true);
+        }
     }
 }
