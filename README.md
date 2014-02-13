@@ -5,19 +5,20 @@ This is a implementation for Android advanced UI pattern undo-bar, used in Gmail
 
 UndoBar was modify from Roman(@romannurik)'s undobar concept (https://code.google.com/p/romannurik-code/), and backport it to Android 2.x and make it easier to use
 
+![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true)
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true)
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true)
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true)
-![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true)
 
-How to use this libary
+
+How to use this library
 =======
 
 - Download this libary, import to your IDE (eclipse...) as libary project.
 - Using Gradle(from 0.5):
 
 ```xml
-compile 'com.cocosw:undobar:0.6@aar'
+compile 'com.cocosw:undobar:0.7@aar'
 ```
 
 - Using Maven(<0.4)
@@ -41,8 +42,14 @@ API
 ``` java
     UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken);
 ```
+- You can also use UndoBar in builder style.
 
-- UndoBar support customize style with background/icon/duration/animation attribution. library provides 3 default styles. You can use them in different purpose like undo,refresh, or just use it as replacement of Toaster
+``` java
+    new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show;
+```
+
+- UndoBar support customize style with background/icon/duration/animation attribution.
+- UndoBar provides 3 default styles. You can use them for different purpose like undo,refresh, or just use it as replacement of Toasts.
 - UndoBar will switch to KitKat look and feel in API-19 target.
 - You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.
 
@@ -66,7 +73,7 @@ Other
 License
 =======
 
-    Copyright 2011, 2012 Liao Kai
+    Copyright 2011, 2014 Liao Kai
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
