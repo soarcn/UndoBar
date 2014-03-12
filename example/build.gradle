@@ -4,13 +4,13 @@ apply from: '../config/android.gradle'
 
 
 dependencies {
-    compile project(':libary')
+    compile project(':library')
     compile 'com.android.support:support-v4:19.0.0'
 }
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.1'
+    buildToolsVersion '19.0.3'
 
     sourceSets {
         main {

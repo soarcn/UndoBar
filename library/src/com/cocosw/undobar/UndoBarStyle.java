@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.animation.Animation;
 
-import com.cocosw.undobar.R.drawable;
-
 public class UndoBarStyle implements Parcelable {
 
     public static final int DEFAULT_DURATION = 5000;
