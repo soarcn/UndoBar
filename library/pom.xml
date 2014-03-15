@@ -11,7 +11,7 @@
 
     <artifactId>undobar</artifactId>
     <packaging>apklib</packaging>
-    <name>UndoBar libary</name>
+    <name>UndoBar library</name>
 
     <dependencies>
         <dependency>
