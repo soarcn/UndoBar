@@ -72,6 +72,7 @@
     <style name="UndoBarButtonKitKat" parent="UndoBarButtonClassic">
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/toast_frame_holo_button</item>
+        <item name="android:paddingRight">25dp</item>
     </style>
 
 
@@ -82,6 +83,7 @@
         <item name="android:freezesText">true</item>
         <item name="android:layout_weight">1.0</item>
         <item name="android:layout_gravity">start|center</item>
+        <item name="android:layout_marginLeft">25dp</item>
     </style>
 
     <style name="UndoBarDivider">
