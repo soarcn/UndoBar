@@ -14,7 +14,7 @@ UndoBar was modify from Roman(@romannurik)'s undobar concept (https://code.googl
 How to use this library
 =======
 
-- Download this libary, import to your IDE (eclipse...) as libary project.
+- Download this library, import to your IDE (eclipse...) as library project.
 - Using Gradle(from 0.5):
 
 ```xml

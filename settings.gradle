@@ -1,2 +1,2 @@
-include 'libary'
+include 'libary', 'library'
 include 'example'
