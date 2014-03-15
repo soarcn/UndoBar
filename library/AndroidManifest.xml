@@ -13,12 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
     package="com.cocosw.undobar"
-    android:versionCode="2"
-    android:versionName="1.1">
+>
 
-    <uses-sdk
-        android:minSdkVersion="6"
-        android:targetSdkVersion="16" />
 </manifest>
