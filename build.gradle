@@ -20,7 +20,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.0'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 
@@ -33,7 +33,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
-		maven { url "file:///D:/develop/mvn" }
+        maven { url "file:///D:/develop/mvn" }
         maven { url "https://raw.github.com/soarcn/mvn/master" }
     }
 
