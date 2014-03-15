@@ -3,7 +3,7 @@ UndoBar
 
 This is a implementation for Android advanced UI pattern undo-bar, used in Gmail app, create by roman nurik
 
-UndoBar was modify from Roman(@romannurik)'s undobar concept (https://code.google.com/p/romannurik-code/), and backport it to Android 2.x and make it easier to use
+UndoBar was modified from Roman(@romannurik)'s undobar concept (https://code.google.com/p/romannurik-code/), and backport it to Android 2.x and make it easier to use
 
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true)
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true)
@@ -14,11 +14,11 @@ UndoBar was modify from Roman(@romannurik)'s undobar concept (https://code.googl
 How to use this library
 =======
 
-- Download this library, import to your IDE (eclipse...) as library project.
+- Download this library, import to your IDE (eclipse...) as a library project.
 - Using Gradle(from 0.5):
 
 ```xml
-compile 'com.cocosw:undobar:0.7@aar'
+compile 'com.cocosw:undobar:0.+@aar'
 ```
 
 - Using Maven(<0.4)
