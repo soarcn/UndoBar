@@ -75,7 +75,8 @@ public class UndoBarController extends LinearLayout {
                         }
                         hideUndoBar(false);
                     }
-                });
+                }
+        );
 
         hideUndoBar(true);
     }
@@ -178,9 +179,9 @@ public class UndoBarController extends LinearLayout {
     }
 
     /**
-     * hide all undo bar immediately
+     * Hide all undo bar immediately
      *
-     * @param activity
+     * @param activity The activity where the undobar in
      */
     public static void clear(final Activity activity) {
         final UndoBarController v = UndoBarController.getView(activity);

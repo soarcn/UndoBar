@@ -16,9 +16,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <style name="UndoBar" parent="UndoBarClassic"/>
-    <style name="UndoBarMessage" parent="UndoBarMessageClassic"/>
-    <style name="UndoBarButton" parent="UndoBarButtonClassic"/>
+    <style name="UndoBar" parent="UndoBarClassic" />
+
+    <style name="UndoBarMessage" parent="UndoBarMessageClassic" />
+
+    <style name="UndoBarButton" parent="UndoBarButtonClassic" />
 
     <style name="UndoBarClassic">
         <item name="android:layout_width">match_parent</item>

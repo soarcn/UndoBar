@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.animation.Animation;
 
-import com.cocosw.undobar.R.drawable;
-
 public class UndoBarStyle implements Parcelable {
 
     public static final int DEFAULT_DURATION = 5000;
@@ -20,8 +18,9 @@ public class UndoBarStyle implements Parcelable {
 
     /**
      * UndoBar Style
-     * @param icon icon for the button right side
-     * @param title  title for the button right side
+     *
+     * @param icon  icon for the button right side
+     * @param title title for the button right side
      */
     public UndoBarStyle(final int icon, final int title) {
         iconRes = icon;
@@ -30,8 +29,9 @@ public class UndoBarStyle implements Parcelable {
 
     /**
      * UndoBar Style
-     * @param icon icon for the button right side
-     * @param title  title for the button right side
+     *
+     * @param icon     icon for the button right side
+     * @param title    title for the button right side
      * @param duration duration the undobar will stay in screen
      */
     public UndoBarStyle(final int icon, final int title, final long duration) {
@@ -40,12 +40,12 @@ public class UndoBarStyle implements Parcelable {
     }
 
     /**
-     *
      * UndoBar Style
-     * @param icon icon for the button right side
-     * @param title  title for the button right side
+     *
+     * @param icon     icon for the button right side
+     * @param title    title for the button right side
      * @param duration duration the undobar will stay in screen
-     * @param bg background image for undobar
+     * @param bg       background image for undobar
      */
     public UndoBarStyle(final int icon, final int title, final int bg,
                         final long duration) {
@@ -55,11 +55,12 @@ public class UndoBarStyle implements Parcelable {
 
     /**
      * Set Animation for current style
-     * @param inAnimation
-     * @param outAnimation
-     * @return
+     *
+     * @param inAnimation  animation for fade in
+     * @param outAnimation animation for fade out
+     * @return UndoBar
      */
-    public UndoBarStyle setAnim(Animation inAnimation,Animation outAnimation) {
+    public UndoBarStyle setAnim(Animation inAnimation, Animation outAnimation) {
         this.inAnimation = inAnimation;
         this.outAnimation = outAnimation;
         return this;
@@ -91,7 +92,6 @@ public class UndoBarStyle implements Parcelable {
                 titleRes == that.titleRes;
 
     }
-
 
 
     /*

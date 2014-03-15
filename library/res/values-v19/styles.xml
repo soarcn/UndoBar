@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UndoBar" parent="UndoBarKitKat" />
+
+    <style name="UndoBarMessage" parent="UndoBarMessageKitKat" />
+
+    <style name="UndoBarButton" parent="UndoBarButtonKitKat" />
+
+</resources>
