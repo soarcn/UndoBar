@@ -51,6 +51,7 @@ API
 - UndoBar support customize style with background/icon/duration/animation attribution.
 - UndoBar provides 3 default styles. You can use them for different purpose like undo,refresh, or just use it as replacement of Toasts.
 - UndoBar will switch to KitKat look and feel in API-19 target.
+- UndoBar will determine if tranlucent mode(4.4) is using and adjust its position.
 - You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.
 
 ```xml
