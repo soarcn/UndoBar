@@ -3,6 +3,9 @@ package com.cocosw.undobar;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.animation.Animation;
+import android.widget.TextView;
+
+import com.cocosw.undobar.UndoBarController.CountDownFormatter;
 
 public class UndoBarStyle implements Parcelable {
 
@@ -14,6 +17,7 @@ public class UndoBarStyle implements Parcelable {
     long duration = DEFAULT_DURATION;
     Animation inAnimation;
     Animation outAnimation;
+    CountDownFormatter countDownFormatter;
 
 
     /**
@@ -58,7 +62,7 @@ public class UndoBarStyle implements Parcelable {
      *
      * @param inAnimation  animation for fade in
      * @param outAnimation animation for fade out
-     * @return UndoBar
+     * @return UndoBarStyle
      */
     public UndoBarStyle setAnim(Animation inAnimation, Animation outAnimation) {
         this.inAnimation = inAnimation;
@@ -66,6 +70,17 @@ public class UndoBarStyle implements Parcelable {
         return this;
     }
 
+    /**
+     * Set countdown formatter for current style
+     * 
+     * @param countDownFormatter The {@link CountDownFormatter} which provides
+     *            text to be shown in the countdown {@link TextView}
+     * @return UndoBarStyle
+     */
+    public UndoBarStyle setCountDownFormatter(CountDownFormatter countDownFormatter) {
+        this.countDownFormatter = countDownFormatter;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -102,6 +117,7 @@ public class UndoBarStyle implements Parcelable {
         titleRes = source.readInt();
         bgRes = source.readInt();
         duration = source.readLong();
+        countDownFormatter = source.readParcelable(getClass().getClassLoader());
     }
 
     @Override
@@ -110,6 +126,11 @@ public class UndoBarStyle implements Parcelable {
         dest.writeInt(titleRes);
         dest.writeInt(bgRes);
         dest.writeLong(duration);
+        if (countDownFormatter != null && countDownFormatter instanceof Parcelable) {
+            dest.writeParcelable((Parcelable) countDownFormatter, flags);
+        } else {
+            dest.writeParcelable(null, flags);
+        }
     }
 
     @Override
@@ -118,10 +139,12 @@ public class UndoBarStyle implements Parcelable {
     }
 
     public static final Parcelable.Creator<UndoBarStyle> CREATOR = new Parcelable.Creator<UndoBarStyle>() {
+        @Override
         public UndoBarStyle createFromParcel(Parcel source) {
             return new UndoBarStyle(source);
         }
 
+        @Override
         public UndoBarStyle[] newArray(int size) {
             return new UndoBarStyle[size];
         }

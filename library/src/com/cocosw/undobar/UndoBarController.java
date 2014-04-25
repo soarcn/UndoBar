@@ -58,14 +58,31 @@ public class UndoBarController extends LinearLayout {
     private static Animation inAnimation = inFromBottomAnimation(null);
     private static Animation outAnimation = outToBottomAnimation(null);
     private final TextView mMessageView;
+    private final TextView mMessageCountdownView;
     private final TextView mButton;
     private final Handler mHideHandler = new Handler();
-    private final Runnable mHideRunnable = new Runnable() {
+
+    private long mDismissStartMillis;
+    private final CountDownRunnable mCountDownRunnable;
+
+    private class CountDownRunnable implements Runnable {
+
         @Override
         public void run() {
-            hideUndoBar(false);
+            long millisRemaining = style.duration
+                    - (System.currentTimeMillis() - mDismissStartMillis);
+            if (style.countDownFormatter != null) {
+                mMessageCountdownView.setText(style.countDownFormatter
+                        .getCountDownString(millisRemaining));
+            }
+
+            if (millisRemaining <= 0) {
+                hideUndoBar(false);
+            } else {
+                mHideHandler.postDelayed(this, Math.min(millisRemaining, 1000));
+            }
         }
-    };
+    }
     private UndoListener mUndoListener;
     // State objects
     private Parcelable mUndoToken;
@@ -84,7 +101,9 @@ public class UndoBarController extends LinearLayout {
     private UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.undobar, this, true);
+        mCountDownRunnable = new CountDownRunnable();
         mMessageView = (TextView) findViewById(R.id.undobar_message);
+        mMessageCountdownView = (TextView) findViewById(R.id.undobar_message_countdown);
         mButton = (TextView) findViewById(id.undobar_button);
         mButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -357,7 +376,7 @@ public class UndoBarController extends LinearLayout {
     }
 
     private void hideUndoBar(final boolean immediate) {
-        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.removeCallbacks(mCountDownRunnable);
         mUndoToken = null;
         if (immediate) {
             setVisibility(View.GONE);
@@ -418,9 +437,17 @@ public class UndoBarController extends LinearLayout {
         if (style.bgRes > 0)
             findViewById(id._undobar).setBackgroundResource(style.bgRes);
 
-        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.removeCallbacks(mCountDownRunnable);
+
+        if (style.countDownFormatter != null) {
+            mMessageCountdownView.setVisibility(View.VISIBLE);
+            mMessageCountdownView.setText(style.countDownFormatter
+                    .getCountDownString(style.duration));
+        }
+
+        mDismissStartMillis = System.currentTimeMillis();
         if (style.duration > 0) {
-            mHideHandler.postDelayed(mHideRunnable, style.duration);
+            mHideHandler.postDelayed(mCountDownRunnable, Math.min(1000, style.duration));
         }
         if (!immediate) {
             clearAnimation();
@@ -451,6 +478,20 @@ public class UndoBarController extends LinearLayout {
 //    public static void onCreateActivity(Activity act) {
 //        ensureView(act);
 //    }
+
+    /**
+     * A callback interface which is used to provide the text to display when
+     * counting down.
+     */
+    public interface CountDownFormatter {
+        /**
+         * Called each tick of the CountDownTimer
+         * 
+         * @param millisLeft time in milliseconds remaining before the item is
+         *            automatically removed
+         */
+        public String getCountDownString(final long millisLeft);
+    }
 
     /**
      * UndoBar Builder

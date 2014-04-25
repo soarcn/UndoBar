@@ -21,7 +21,10 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="UndoBar" parent="UndoBarKitKat"/>
-    <style name="UndoBarMessage" parent="UndoBarMessageKitKat"/>
-    <style name="UndoBarButton" parent="UndoBarButtonKitKat"/>
+    <style name="UndoBar" parent="UndoBarKitKat" />
+    <style name="UndoBarMessageContainer" parent="UndoBarMessageContainerKitKat" />
+    <style name="UndoBarMessage" parent="UndoBarMessageKitKat" />
+    <style name="UndoBarMessageCountdown" parent="UndoBarMessageCountdownKitKat" />
+    <style name="UndoBarButton" parent="UndoBarButtonKitKat" />
+
 </resources>

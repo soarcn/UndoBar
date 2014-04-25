@@ -15,10 +15,13 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <style name="UndoBar" parent="UndoBarClassic" />
 
+    <style name="UndoBarMessageContainer" parent="UndoBarMessageContainerClassic" />
+
     <style name="UndoBarMessage" parent="UndoBarMessageClassic" />
+
+    <style name="UndoBarMessageCountdown" parent="UndoBarMessageCountdownClassic" />
 
     <style name="UndoBarButton" parent="UndoBarButtonClassic" />
 
@@ -36,15 +39,27 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="UndoBarMessageClassic">
+    <style name="UndoBarMessageContainerClassic">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="UndoBarMessageClassic">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
         <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="UndoBarMessageCountdownClassic" parent="UndoBarMessageClassic">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
     </style>
 
     <style name="UndoBarButtonClassic">
@@ -68,22 +83,28 @@
         <item name="android:padding">0.0dip</item>
     </style>
 
-
     <style name="UndoBarButtonKitKat" parent="UndoBarButtonClassic">
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/toast_frame_holo_button</item>
         <item name="android:paddingRight">25dp</item>
     </style>
 
+    <style name="UndoBarMessageContainerKitKat" parent="UndoBarMessageContainerClassic">
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_gravity">start|center</item>
+        <item name="android:layout_marginLeft">25dp</item>
+    </style>
 
     <style name="UndoBarMessageKitKat" parent="UndoBarMessageClassic">
         <item name="android:shadowColor">#bb000000</item>
         <item name="android:shadowRadius">2.75</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
         <item name="android:freezesText">true</item>
-        <item name="android:layout_weight">1.0</item>
         <item name="android:layout_gravity">start|center</item>
-        <item name="android:layout_marginLeft">25dp</item>
+    </style>
+
+    <style name="UndoBarMessageCountdownKitKat" parent="UndoBarMessageKitKat">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
     </style>
 
     <style name="UndoBarDivider">
@@ -93,6 +114,5 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:background">@drawable/undobar_divider</item>
     </style>
-
 
 </resources>
