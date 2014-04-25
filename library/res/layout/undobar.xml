@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/_undobar"
-    style="@style/UndoBar">
+    style="@style/UndoBar" >
 
-    <TextView
-        android:id="@+id/undobar_message"
-        style="@style/UndoBarMessage" />
+    <LinearLayout
+        style="@style/UndoBarMessageContainer"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/undobar_message"
+            style="@style/UndoBarMessage" />
+
+        <TextView
+            android:id="@+id/undobar_message_countdown"
+            style="@style/UndoBarMessageCountdown"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <View
         android:id="@+id/undobar_divider"
@@ -18,4 +28,5 @@
     <Button
         android:id="@+id/undobar_button"
         style="@style/UndoBarButton" />
+
 </LinearLayout>

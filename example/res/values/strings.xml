@@ -2,7 +2,16 @@
 <resources>
     <string name="app_name">UndoBarExample</string>
     <string name="title_activity_undo_style">UndoStyle</string>
+    <string name="title_activity_undo_countdown_style">UndoCountdownStyle</string>
     <string name="title_activity_customize">Customize Style</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+
+    <plurals name="countdown_seconds">
+        <item quantity="one">Dismissing in 1...</item>
+        <item quantity="other">Dismissing in %d...</item>
+    </plurals>
+
+    <string name="countdown_dismissing">Dismissing</string>
+
 </resources>

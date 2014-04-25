@@ -24,6 +24,10 @@
             android:label="@string/title_activity_undo_style" >
         </activity>
         <activity
+            android:name="com.cocosw.undobar.example.UndoCountdownStyle"
+            android:label="@string/title_activity_undo_countdown_style" >
+        </activity>
+        <activity
             android:name="com.cocosw.undobar.example.RetryStyle"
             android:label="RetryStyle" >
         </activity>
