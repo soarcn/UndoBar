@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Roman Nurik
+ * Copyright 2014 LiaoKai
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -207,7 +207,7 @@ public class UndoBarController extends LinearLayout {
      *
      * @return True if navigation should appear at the bottom of the screen, False otherwise.
      */
-    public boolean isNavigationAtBottom() {
+    private boolean isNavigationAtBottom() {
         return (mSmallestWidthDp >= 600 || mInPortrait);
     }
 

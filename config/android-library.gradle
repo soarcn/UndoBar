@@ -26,8 +26,8 @@ android {
     buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        versionCode  Integer.parseInt(project.VERSION_CODE)
-        versionName  project.VERSION_NAME
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
         minSdkVersion Integer.parseInt(project.MIN_SDK_VERSION)
         targetSdkVersion Integer.parseInt(project.TARGET_SDK_VERSION)
     }
@@ -40,20 +40,3 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 }
-
-    android.libraryVariants.all { variant ->
-
-        task("generate${variant.name}Javadoc", type: Javadoc) {
-            title = "android lib - android-gradle-template $version API"
-            description "Generates Javadoc for $variant.name."
-            source = variant.javaCompile.source
-            ext.androidJar =
-                    "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-            options.links("http://docs.oracle.com/javase/7/docs/api/");
-            options.linksOffline("http://d.android.com/reference","${android.plugin.sdkDirectory}/docs/reference");
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
-            exclude '**/Log2File.java'
-        }
-    }
