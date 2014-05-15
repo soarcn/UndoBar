@@ -49,12 +49,17 @@ import java.lang.reflect.Method;
 
 public class UndoBarController extends LinearLayout {
 
-    public static UndoBarStyle UNDOSTYLE = new UndoBarStyle(
+    private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
+    private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
+    private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
+
+    public static final UndoBarStyle UNDOSTYLE = new UndoBarStyle(
             drawable.ic_undobar_undo, string.undo);
     private UndoBarStyle style = UndoBarController.UNDOSTYLE;
-    public static UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
+    public static final UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
             string.retry, -1);
-    public static UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+    public static final UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+
     private static Animation inAnimation = inFromBottomAnimation(null);
     private static Animation outAnimation = outToBottomAnimation(null);
     private final TextView mMessageView;
@@ -64,22 +69,21 @@ public class UndoBarController extends LinearLayout {
         @Override
         public void run() {
             hideUndoBar(false);
+            if (mUndoListener instanceof AdvancedUndoListener) {
+                ((AdvancedUndoListener) mUndoListener).onHide(mUndoToken);
+            }
         }
     };
     private UndoListener mUndoListener;
     // State objects
     private Parcelable mUndoToken;
-
     private CharSequence mUndoMessage;
-
     //Only for KitKat translucent mode
     private int translucent = -1;
-
     private boolean mInPortrait;
     private String sNavBarOverride;
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
-
 
     private UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
@@ -125,6 +129,7 @@ public class UndoBarController extends LinearLayout {
             }
 
             // check window flags
+            assert (getContext()) != null;
             WindowManager.LayoutParams winParams = ((Activity) getContext()).getWindow().getAttributes();
             int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
             if ((winParams.flags & bits) != 0) {
@@ -133,84 +138,6 @@ public class UndoBarController extends LinearLayout {
             mSmallestWidthDp = getSmallestWidthDp(wm);
         }
     }
-
-    @SuppressLint("NewApi")
-    private float getSmallestWidthDp(WindowManager wm) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            wm.getDefaultDisplay().getRealMetrics(metrics);
-        } else {
-            // TODO this is not correct, but we don't really care pre-kitkat
-            wm.getDefaultDisplay().getMetrics(metrics);
-        }
-        float widthDp = metrics.widthPixels / metrics.density;
-        float heightDp = metrics.heightPixels / metrics.density;
-        return Math.min(widthDp, heightDp);
-    }
-
-
-    private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
-    private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
-    private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
-
-    @TargetApi(14)
-    private int getNavigationBarHeight(Context context) {
-        Resources res = context.getResources();
-        int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            if (hasNavBar(context)) {
-                String key;
-                if (mInPortrait) {
-                    key = NAV_BAR_HEIGHT_RES_NAME;
-                } else {
-                    if (!isNavigationAtBottom())
-                        return 0;
-                    key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
-                }
-                return getInternalDimensionSize(res, key);
-            }
-        }
-        return result;
-    }
-
-    @TargetApi(14)
-    private boolean hasNavBar(Context context) {
-        Resources res = context.getResources();
-        int resourceId = res.getIdentifier(SHOW_NAV_BAR_RES_NAME, "bool", "android");
-        if (resourceId != 0) {
-            boolean hasNav = res.getBoolean(resourceId);
-            // check override flag (see static block)
-            if ("1".equals(sNavBarOverride)) {
-                hasNav = false;
-            } else if ("0".equals(sNavBarOverride)) {
-                hasNav = true;
-            }
-            return hasNav;
-        } else { // fallback
-            return !ViewConfiguration.get(context).hasPermanentMenuKey();
-        }
-    }
-
-    private int getInternalDimensionSize(Resources res, String key) {
-        int result = 0;
-        int resourceId = res.getIdentifier(key, "dimen", "android");
-        if (resourceId > 0) {
-            result = res.getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
-     * Should a navigation bar appear at the bottom of the screen in the current
-     * device configuration? A navigation bar may appear on the right side of
-     * the screen in certain configurations.
-     *
-     * @return True if navigation should appear at the bottom of the screen, False otherwise.
-     */
-    private boolean isNavigationAtBottom() {
-        return (mSmallestWidthDp >= 600 || mInPortrait);
-    }
-
 
     private static Animation outToBottomAnimation(
             final android.view.animation.Animation.AnimationListener animationlistener) {
@@ -343,6 +270,78 @@ public class UndoBarController extends LinearLayout {
             UndoBarController.outAnimation = outAnimation;
     }
 
+    @SuppressLint("NewApi")
+    private float getSmallestWidthDp(WindowManager wm) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            wm.getDefaultDisplay().getRealMetrics(metrics);
+        } else {
+            //this is not correct, but we don't really care pre-kitkat
+            wm.getDefaultDisplay().getMetrics(metrics);
+        }
+        float widthDp = metrics.widthPixels / metrics.density;
+        float heightDp = metrics.heightPixels / metrics.density;
+        return Math.min(widthDp, heightDp);
+    }
+
+    @TargetApi(14)
+    private int getNavigationBarHeight(Context context) {
+        Resources res = context.getResources();
+        int result = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (hasNavBar(context)) {
+                String key;
+                if (mInPortrait) {
+                    key = NAV_BAR_HEIGHT_RES_NAME;
+                } else {
+                    if (!isNavigationAtBottom())
+                        return 0;
+                    key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
+                }
+                return getInternalDimensionSize(res, key);
+            }
+        }
+        return result;
+    }
+
+    @TargetApi(14)
+    private boolean hasNavBar(Context context) {
+        Resources res = context.getResources();
+        int resourceId = res.getIdentifier(SHOW_NAV_BAR_RES_NAME, "bool", "android");
+        if (resourceId != 0) {
+            boolean hasNav = res.getBoolean(resourceId);
+            // check override flag (see static block)
+            if ("1".equals(sNavBarOverride)) {
+                hasNav = false;
+            } else if ("0".equals(sNavBarOverride)) {
+                hasNav = true;
+            }
+            return hasNav;
+        } else { // fallback
+            return !ViewConfiguration.get(context).hasPermanentMenuKey();
+        }
+    }
+
+    private int getInternalDimensionSize(Resources res, String key) {
+        int result = 0;
+        int resourceId = res.getIdentifier(key, "dimen", "android");
+        if (resourceId > 0) {
+            result = res.getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    /**
+     * Should a navigation bar appear at the bottom of the screen in the current
+     * device configuration? A navigation bar may appear on the right side of
+     * the screen in certain configurations.
+     *
+     * @return True if navigation should appear at the bottom of the screen, False otherwise.
+     */
+    private boolean isNavigationAtBottom() {
+        return (mSmallestWidthDp >= 600 || mInPortrait);
+    }
+
     /**
      * Get callback listener
      *
@@ -439,18 +438,24 @@ public class UndoBarController extends LinearLayout {
     }
 
     public interface UndoListener {
+
+        /**
+         * The callback function will be called when user press button in Undobar
+         *
+         * @param token
+         */
         void onUndo(Parcelable token);
     }
 
-//    /**
-//     * This interface mush be called in activity onCreate if you want to keep UndoBar state without putting UndoBar in your view layout
-//     *
-//     *
-//     * @param act
-//     */
-//    public static void onCreateActivity(Activity act) {
-//        ensureView(act);
-//    }
+    public interface AdvancedUndoListener extends UndoListener {
+        /**
+         * The callback function will be called when the Undobar fade out after duration without button clicked.
+         *
+         * @param token
+         */
+        void onHide(Parcelable token);
+    }
+
 
     /**
      * UndoBar Builder
