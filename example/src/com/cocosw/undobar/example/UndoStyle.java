@@ -37,8 +37,9 @@ public class UndoStyle extends ListActivity implements UndoBarController.Advance
                                    final int position, final long id) {
         final Bundle b = new Bundle();
         b.putInt("index", position);
-        UndoBarController.show(this, getListAdapter().getItem(position)
-                + " was selected", this, b);
+
+        new UndoBarController.UndoBar(this).message(getListAdapter().getItem(position)
+                + " was selected").listener(this).token(b).show();
     }
 
     @Override
