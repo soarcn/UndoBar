@@ -27,6 +27,12 @@ public class UndoStyle extends ListActivity implements UndoBarController.Advance
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        UndoBarController.clear(this);
+    }
+
+    @Override
     protected void onListItemClick(final ListView l, final View v,
                                    final int position, final long id) {
         final Bundle b = new Bundle();
@@ -51,5 +57,10 @@ public class UndoStyle extends ListActivity implements UndoBarController.Advance
             Toast.makeText(this, "UndoBar hided! index " + position,
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onClear() {
+
     }
 }
