@@ -255,6 +255,11 @@ public class UndoBarController extends LinearLayout {
         if (v != null) {
             v.setVisibility(View.GONE);
         }
+        v.mHideHandler.removeCallbacks(v.mHideRunnable);
+
+        if (v.mUndoListener instanceof AdvancedUndoListener) {
+            ((AdvancedUndoListener) v.mUndoListener).onClear();
+        }
     }
 
     /**
@@ -454,6 +459,8 @@ public class UndoBarController extends LinearLayout {
          * @param token
          */
         void onHide(Parcelable token);
+
+        void onClear();
     }
 
 
