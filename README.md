@@ -21,18 +21,6 @@ How to use this library
 compile 'com.cocosw:undobar:1.+@aar'
 ```
 
-- Using Maven(<0.4)
-
-```xml
-<dependency>
-    <groupId>com.cocosw</groupId>
-    <artifactId>undobar</artifactId>
-    <version>0.4</version>
-    <type>apklib</type>
-</dependency>
-```
-
-
 
 API
 =======
@@ -42,7 +30,7 @@ API
 ``` java
     UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken);
 ```
-- You can also use UndoBar in builder style.
+- Or you can also use UndoBar with builder style.
 
 ``` java
     new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show;
