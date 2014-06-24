@@ -33,7 +33,7 @@ API
 - Or you can also use UndoBar with builder style.
 
 ``` java
-    new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show;
+    new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show();
 ```
 
 - UndoBar support customize style with background/icon/duration/animation attribution.
