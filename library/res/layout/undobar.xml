@@ -5,7 +5,9 @@
 
     <TextView
         android:id="@+id/undobar_message"
-        style="@style/UndoBarMessage" />
+        style="@style/UndoBarMessage"
+        android:maxLines="1"
+        android:ellipsize="end" />
 
     <View
         android:id="@+id/undobar_divider"
