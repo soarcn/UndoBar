@@ -15,7 +15,7 @@ How to use this library
 =======
 
 - Download this library, import to your IDE (eclipse...) as a library project.
-- Using Gradle(from 0.5):
+- Using Gradle(from 0.5), ps:if this not work, try to add "@aar" at the end.
 
 ```xml
 compile 'com.cocosw:undobar:1.+' 
