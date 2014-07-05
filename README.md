@@ -18,7 +18,7 @@ How to use this library
 - Using Gradle(from 0.5):
 
 ```xml
-compile 'com.cocosw:undobar:1.+@aar'
+compile 'com.cocosw:undobar:1.+' 
 ```
 
 
