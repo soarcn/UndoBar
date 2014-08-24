@@ -5,7 +5,7 @@ apply from: '../config/android.gradle'
 
 dependencies {
     compile project(':library')
-    compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v4:20.0.0'
 }
 
 android {
