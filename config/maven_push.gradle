@@ -29,19 +29,15 @@ def isReleaseBuild() {
 
 def sonatypeRepositoryUrl
 if (isReleaseBuild()) {
-    println 'Sonatype RELEASE BUILD'
     sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 } else {
-    println 'Sonatype SNAPSHOT BUILD'
     sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 def githubRepositoryUrl
 if (isReleaseBuild()) {
-    println 'GITHUB RELEASE BUILD'
     githubRepositoryUrl = "file:///D:/develop/mvn"
 } else {
-    println 'GITHUB SNAPSHOT BUILD'
     githubRepositoryUrl = "file:///D:/develop/mvn"
 }
 
@@ -115,9 +111,9 @@ afterEvaluate { project ->
 
 
     artifacts {
-        archives androidReleaseJar
+        //    archives androidReleaseJar
         archives androidSourcesJar
-        archives androidJavadocsJar
+        //     archives androidJavadocsJar
     }
 }
 
