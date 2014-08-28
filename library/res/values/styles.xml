@@ -70,6 +70,7 @@
 
 
     <style name="UndoBarButtonKitKat" parent="UndoBarButtonClassic">
+        <item name="android:textStyle">normal</item>
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/toast_frame_holo_button</item>
