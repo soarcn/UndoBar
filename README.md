@@ -17,9 +17,9 @@ How to use this library
 - Download this library, import to your IDE (eclipse...) as a library project.
 - Using Gradle(from 0.5)
 
-```xml
-compile 'com.cocosw:undobar:1.+@aar' 
-```
+    ```groovy
+    compile 'com.cocosw:undobar:1.+@aar' 
+    ```
 
 
 API
@@ -27,14 +27,14 @@ API
 
 - You can use UndoBar by just one line code
 
-``` java
+    ``` java
     UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken);
-```
+    ```
 - Or you can also use UndoBar with builder style.
 
-``` java
+    ``` java
     new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show();
-```
+    ```
 
 - UndoBar support customize style with background/icon/duration/animation attribution.
 - UndoBar provides 3 default styles. You can use them for different purpose like undo,refresh, or just use it as replacement of Toasts.
@@ -42,11 +42,11 @@ API
 - UndoBar will determine if tranlucent mode(4.4) is using and adjust its position.
 - You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.
 
-```xml
+    ```xml
     <style name="UndoBar" parent="UndoBarKitKat"/>
     <style name="UndoBarMessage" parent="UndoBarMessageKitKat"/>
     <style name="UndoBarButton" parent="UndoBarButtonKitKat"/>
-```
+    ```
 
 Contribute
 =======
