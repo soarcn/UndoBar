@@ -407,6 +407,9 @@ public class UndoBarController extends LinearLayout {
         mUndoToken = undoToken;
         mUndoMessage = message;
         mMessageView.setText(mUndoMessage);
+        if (style.msgIcon > 0) {
+            mMessageView.setCompoundDrawablesWithIntrinsicBounds(style.msgIcon, 0, 0, 0);
+        }
 
         if (style.titleRes > 0) {
             mButton.setVisibility(View.VISIBLE);
