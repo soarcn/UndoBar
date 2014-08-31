@@ -14,6 +14,7 @@ public class UndoBarStyle implements Parcelable {
     long duration = DEFAULT_DURATION;
     Animation inAnimation;
     Animation outAnimation;
+    int msgIcon;
 
 
     /**
@@ -66,6 +67,15 @@ public class UndoBarStyle implements Parcelable {
         return this;
     }
 
+    public UndoBarStyle setMsgIcon(int iconId) {
+        this.msgIcon = iconId;
+        return this;
+    }
+
+    public UndoBarStyle setDuration(long duration) {
+        this.duration = duration;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -76,6 +86,7 @@ public class UndoBarStyle implements Parcelable {
                 ", duration=" + duration +
                 ", inAnimation=" + inAnimation +
                 ", outAnimation=" + outAnimation +
+                ", msgIcon=" + msgIcon +
                 '}';
     }
 
@@ -102,6 +113,7 @@ public class UndoBarStyle implements Parcelable {
         titleRes = source.readInt();
         bgRes = source.readInt();
         duration = source.readLong();
+        msgIcon = source.readInt();
     }
 
     @Override
@@ -110,6 +122,7 @@ public class UndoBarStyle implements Parcelable {
         dest.writeInt(titleRes);
         dest.writeInt(bgRes);
         dest.writeLong(duration);
+        dest.writeInt(msgIcon);
     }
 
     @Override
