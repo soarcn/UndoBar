@@ -85,7 +85,7 @@ public class UndoBarController extends LinearLayout {
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
 
-    private UndoBarController(final Context context, final AttributeSet attrs) {
+    public UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.undobar, this, true);
         mMessageView = (TextView) findViewById(R.id.undobar_message);
@@ -160,7 +160,10 @@ public class UndoBarController extends LinearLayout {
         return translateanimation;
     }
 
+    @Deprecated
     /**
+     * Deprecated, use {@link com.cocosw.undobar.UndoBarController.UndoBar} instead
+     *
      * Quick method to insert a UndoBar into an Activity
      *
      * @param activity  Activity to hold this view
@@ -179,6 +182,7 @@ public class UndoBarController extends LinearLayout {
 
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, UndoListener listener,
                                          Parcelable undoToken, boolean immediate, UndoBarStyle style,
@@ -212,6 +216,7 @@ public class UndoBarController extends LinearLayout {
         return undo;
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final int message, final UndoListener listener,
                                          final Parcelable undoToken, final boolean immediate) {
@@ -219,6 +224,7 @@ public class UndoBarController extends LinearLayout {
                 listener, undoToken, immediate, UndoBarController.UNDOSTYLE);
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener,
                                          final Parcelable undoToken) {
@@ -226,6 +232,7 @@ public class UndoBarController extends LinearLayout {
                 false, UndoBarController.UNDOSTYLE);
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener,
                                          final UndoBarStyle style) {
@@ -233,19 +240,24 @@ public class UndoBarController extends LinearLayout {
                 style);
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener) {
         return UndoBarController.show(activity, message, listener, null, false,
                 UndoBarController.UNDOSTYLE);
     }
 
+    @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message) {
         return UndoBarController.show(activity, message, null, null, false,
                 UndoBarController.MESSAGESTYLE);
     }
 
+    @Deprecated
     /**
+     * @Deprecated, use {@link com.cocosw.undobar.UndoBarController.UndoBar} clear() instead
+     *
      * Hide all undo bar immediately
      *
      * @param activity The activity where the undobar in
@@ -259,8 +271,6 @@ public class UndoBarController extends LinearLayout {
                 ((AdvancedUndoListener) v.mUndoListener).onClear();
             }
         }
-
-
     }
 
     /**
@@ -377,7 +387,7 @@ public class UndoBarController extends LinearLayout {
     }
 
     @Override
-    public Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         final Bundle outState = new Bundle();
         outState.putCharSequence("undo_message", mUndoMessage);
         outState.putParcelable("undo_token", mUndoToken);
@@ -388,7 +398,7 @@ public class UndoBarController extends LinearLayout {
 
 
     @Override
-    public void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             mUndoMessage = bundle.getCharSequence("undo_message");
@@ -576,6 +586,10 @@ public class UndoBarController extends LinearLayout {
          */
         public UndoBarController show() {
             return show(true);
+        }
+
+        public void clear() {
+            UndoBarController.clear(activity);
         }
     }
 }
