@@ -71,11 +71,16 @@ public class UndoBarController extends LinearLayout {
             if (mUndoListener instanceof AdvancedUndoListener) {
                 ((AdvancedUndoListener) mUndoListener).onHide(mUndoToken);
             }
-            hideUndoBar(false);
+            if (mImmediate) {
+                hideUndoBar(true);
+            } else {
+                hideUndoBar(false);
+            }
         }
     };
     private UndoListener mUndoListener;
     // State objects
+    private boolean mImmediate;
     private Parcelable mUndoToken;
     private CharSequence mUndoMessage;
     //Only for KitKat translucent mode
@@ -97,7 +102,11 @@ public class UndoBarController extends LinearLayout {
                         if (mUndoListener != null) {
                             mUndoListener.onUndo(mUndoToken);
                         }
-                        hideUndoBar(false);
+                        if (mImmediate) {
+                            hideUndoBar(true);
+                        } else {
+                            hideUndoBar(false);
+                        }
                     }
                 }
         );
@@ -389,6 +398,7 @@ public class UndoBarController extends LinearLayout {
     @Override
     protected Parcelable onSaveInstanceState() {
         final Bundle outState = new Bundle();
+        outState.putBoolean("immediate", mImmediate);
         outState.putCharSequence("undo_message", mUndoMessage);
         outState.putParcelable("undo_token", mUndoToken);
         outState.putParcelable("undo_style", style);
@@ -401,6 +411,7 @@ public class UndoBarController extends LinearLayout {
     protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
+            mImmediate = bundle.getBoolean("immediate");
             mUndoMessage = bundle.getCharSequence("undo_message");
             mUndoToken = bundle.getParcelable("undo_token");
             style = bundle.getParcelable("undo_style");
@@ -414,6 +425,7 @@ public class UndoBarController extends LinearLayout {
     @SuppressWarnings("ConstantConditions")
     private void showUndoBar(final boolean immediate,
                              final CharSequence message, final Parcelable undoToken) {
+        mImmediate = immediate;
         mUndoToken = undoToken;
         mUndoMessage = message;
         mMessageView.setText(mUndoMessage, TextView.BufferType.SPANNABLE);
