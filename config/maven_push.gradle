@@ -72,21 +72,21 @@ if (!ext.properties.containsKey('nexusPassword')) {
 afterEvaluate { project ->
     uploadArchives {
         repositories {
-//            mavenDeployer {
-//                configurePOM(pom)
-//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//
-//                repository(url: sonatypeRepositoryUrl) {
-//                    authentication(userName: nexusUsername, password: nexusPassword)
-//                }
-//            }
-
             mavenDeployer {
                 configurePOM(pom)
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                repository(url: githubRepositoryUrl)
+                repository(url: sonatypeRepositoryUrl) {
+                    authentication(userName: nexusUsername, password: nexusPassword)
+                }
             }
+
+//            mavenDeployer {
+//                configurePOM(pom)
+//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//                repository(url: githubRepositoryUrl)
+//            }
         }
     }
 
@@ -128,6 +128,7 @@ afterEvaluate { project ->
         //    archives androidReleaseJar
         archives androidSourcesJar
         archives androidJavadocsJar
+        archives apklib
     }
 }
 
