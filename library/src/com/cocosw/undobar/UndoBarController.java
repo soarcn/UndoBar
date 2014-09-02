@@ -79,8 +79,8 @@ public class UndoBarController extends LinearLayout {
         }
     };
     private UndoListener mUndoListener;
-    // State objects
     private boolean mImmediate;
+    // State objects
     private Parcelable mUndoToken;
     private CharSequence mUndoMessage;
     //Only for KitKat translucent mode
@@ -566,6 +566,14 @@ public class UndoBarController extends LinearLayout {
             return this;
         }
 
+        /**
+         * Translucent mode will be used, meaning undobar will be shown in a upper place than usual
+         * This is only for Kitkat+
+         * Undobar will determin if translucent mode is used or not if you do not set this.
+         *
+         * @param enable
+         * @return
+         */
         public UndoBar translucent(boolean enable) {
             translucent = enable ? 1 : 0;
             return this;
