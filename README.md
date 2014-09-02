@@ -25,20 +25,20 @@ How to use this library
 API
 =======
 
-- You can use UndoBar by just one line code
-
-    ``` java
-    UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken);
-    ```
-- Or you can also use UndoBar with builder style.
+- You can also use UndoBar with builder style.
 
     ``` java
     new UndoBar(getActivity()).message("Undo-bar title").listener(listener).show();
     ```
+- Or you can use UndoBar by just one line code (Deprecated from 1.4)
+    
+    ``` java
+    UndoBarController.show(getActivity(), "Undo-bar title" , listener, undoToken);
+    ```
 
 - UndoBar support customize style with background/icon/duration/animation attribution.
-- UndoBar provides 3 default styles. You can use them for different purpose like undo,refresh, or just use it as replacement of Toasts.
-- UndoBar will switch to KitKat look and feel in API-19 target.
+- UndoBar provides 3 default styles. You can use them for different purposes like undo,refresh, or just use it as replacement of toasts.
+- UndoBar will switch to KitKat look and feel in API-19 target and after.
 - UndoBar will determine if tranlucent mode(4.4) is using and adjust its position.
 - You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.
 
@@ -52,11 +52,6 @@ Contribute
 =======
 
 - Feel free to fork it
-
-
-Other
-=======
-- Works perfectly with Crouton/Menudrawer/ABS
 
 
 License
