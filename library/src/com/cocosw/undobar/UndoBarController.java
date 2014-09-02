@@ -416,7 +416,7 @@ public class UndoBarController extends LinearLayout {
                              final CharSequence message, final Parcelable undoToken) {
         mUndoToken = undoToken;
         mUndoMessage = message;
-        mMessageView.setText(mUndoMessage);
+        mMessageView.setText(mUndoMessage, TextView.BufferType.SPANNABLE);
 
         if (style.titleRes > 0) {
             mButton.setVisibility(View.VISIBLE);
