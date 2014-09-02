@@ -26,10 +26,7 @@ public class Customize extends Activity implements UndoListener {
 
 			@Override
 			public void onClick(final View v) {
-
-				UndoBarController.show(Customize.this, "Hello World!",
-						Customize.this, style);
-
+                new UndoBarController.UndoBar(Customize.this).message("Hello World!").style(style).show();
 			}
 		});
 	}

@@ -53,8 +53,9 @@ public class RetryStyle extends FragmentActivity implements UndoListener,
 	public void onLoadFinished(final Loader<Void> arg0, final Void arg1) {
 		final ThrowableLoader<Void> loader = ((ThrowableLoader<Void>) arg0);
 		if (loader.getException() != null) {
-			UndoBarController.show(this, loader.getException().getMessage(),
-					this, UndoBarController.RETRYSTYLE);
+
+            new UndoBarController.UndoBar(this).message(loader.getException().getMessage()).style(UndoBarController.RETRYSTYLE).listener(this).show();
+
 		} else {
 			// something todo if there is no exception
 		}

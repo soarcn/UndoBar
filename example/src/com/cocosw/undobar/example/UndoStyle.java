@@ -29,7 +29,7 @@ public class UndoStyle extends ListActivity implements UndoBarController.Advance
     @Override
     protected void onPause() {
         super.onPause();
-        UndoBarController.clear(this);
+        new UndoBarController.UndoBar(this).clear();
     }
 
     @Override
