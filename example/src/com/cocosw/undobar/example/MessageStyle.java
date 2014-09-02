@@ -3,6 +3,9 @@ package com.cocosw.undobar.example;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,7 +53,10 @@ public class MessageStyle extends Activity {
     }
 
     private void attemptLogin() {
-        UndoBarController.show(this, "Hello " + mEmailView.getText());
+        SpannableStringBuilder ssb = new SpannableStringBuilder(" Hello "+ mEmailView.getText() );
+        ssb.setSpan( new ImageSpan(this, android.R.drawable.star_on), 0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        new UndoBarController.UndoBar(MessageStyle.this).message(ssb).show();
     }
+
 
 }
