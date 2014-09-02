@@ -72,21 +72,21 @@ if (!ext.properties.containsKey('nexusPassword')) {
 afterEvaluate { project ->
     uploadArchives {
         repositories {
-            mavenDeployer {
-                configurePOM(pom)
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: sonatypeRepositoryUrl) {
-                    authentication(userName: nexusUsername, password: nexusPassword)
-                }
-            }
-
 //            mavenDeployer {
 //                configurePOM(pom)
 //                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 //
-//                repository(url: githubRepositoryUrl)
+//                repository(url: sonatypeRepositoryUrl) {
+//                    authentication(userName: nexusUsername, password: nexusPassword)
+//                }
 //            }
+
+            mavenDeployer {
+                configurePOM(pom)
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: githubRepositoryUrl)
+            }
         }
     }
 
@@ -95,25 +95,39 @@ afterEvaluate { project ->
         sign configurations.archives
     }
 
-    task androidReleaseJar(type: Jar, dependsOn: assembleRelease) {
-        from "$buildDir/classes/release/"
+
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
-    task androidJavadocsJar(type: Jar) {
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
         classifier = 'javadoc'
-        from "generateReleaseJavadoc.destinationDir"
+        from androidJavadocs.destinationDir
     }
+
 
     task androidSourcesJar(type: Jar) {
         classifier = 'sources'
         from android.sourceSets.main.java.srcDirs
     }
 
+    task apklib(type: Zip){
+        appendix = extension = 'apklib'
+
+        from 'AndroidManifest.xml'
+        into('res') {
+            from 'res'
+        }
+        into('src') {
+            from 'src'
+        }
+    }
 
     artifacts {
         //    archives androidReleaseJar
         archives androidSourcesJar
-        //     archives androidJavadocsJar
+        archives androidJavadocsJar
     }
 }
 
