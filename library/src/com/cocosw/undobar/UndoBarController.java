@@ -24,9 +24,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LightingColorFilter;
@@ -43,11 +41,12 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,6 +68,10 @@ public class UndoBarController extends LinearLayout {
     public static final UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
             string.retry, -1);
     public static final UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+
+
+    public static final UndoBarStyle MATERIAL_UNDOSTYLE = new UndoBarStyle(-1, string.undo).setAnim(snackIn(),snackOut());
+    public static final UndoBarStyle MATERIAL_RETRYSTYLE = new UndoBarStyle(-1, string.retry, -1).setAnim(snackIn(),snackOut());
 
     private static Animation inAnimation = inFromBottomAnimation(null);
     private static Animation outAnimation = outToBottomAnimation(null);
@@ -99,6 +102,40 @@ public class UndoBarController extends LinearLayout {
     private String sNavBarOverride;
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
+
+    private static Animation snackIn() {
+        AnimationSet mInAnimationSet = new AnimationSet(false);
+
+        TranslateAnimation mSlideInAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 1.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.0f);
+
+        AlphaAnimation mFadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
+
+        mInAnimationSet.addAnimation(mSlideInAnimation);
+        mInAnimationSet.addAnimation(mFadeInAnimation);
+        mInAnimationSet.setDuration(500);
+        return mInAnimationSet;
+    }
+
+    private static Animation snackOut() {
+        AnimationSet mOutAnimationSet = new AnimationSet(false);
+
+        TranslateAnimation mSlideOutAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 1.0f);
+
+        AlphaAnimation mFadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
+
+        mOutAnimationSet.addAnimation(mSlideOutAnimation);
+        mOutAnimationSet.addAnimation(mFadeOutAnimation);
+        mOutAnimationSet.setDuration(500);
+        return mOutAnimationSet;
+    }
 
     public UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
@@ -406,7 +443,7 @@ public class UndoBarController extends LinearLayout {
     }
 
     @Override
-    protected Parcelable onSaveInstanceState() {
+    public Parcelable onSaveInstanceState() {
         final Bundle outState = new Bundle();
         outState.putBoolean("immediate", mImmediate);
         outState.putCharSequence("undo_message", mUndoMessage);
@@ -418,7 +455,7 @@ public class UndoBarController extends LinearLayout {
 
 
     @Override
-    protected void onRestoreInstanceState(final Parcelable state) {
+    public void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             mImmediate = bundle.getBoolean("immediate");
