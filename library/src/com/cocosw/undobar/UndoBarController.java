@@ -23,6 +23,15 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +47,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -435,8 +445,23 @@ public class UndoBarController extends LinearLayout {
             findViewById(id.undobar_divider).setVisibility(View.VISIBLE);
             mButton.setText(style.titleRes);
             if (style.iconRes > 0) {
-                mButton.setCompoundDrawablesWithIntrinsicBounds(getResources()
-                        .getDrawable(style.iconRes), null, null, null);
+                Drawable drawable = getResources().getDrawable(style.iconRes);
+                int iColor = mButton.getTextColors().getDefaultColor();
+
+                int red = (iColor & 0xFF0000) / 0xFFFF;
+                int green = (iColor & 0xFF00) / 0xFF;
+                int blue = iColor & 0xFF;
+
+                float[] matrix = { 0, 0, 0, 0, red
+                        , 0, 0, 0, 0, green
+                        , 0, 0, 0, 0, blue
+                        , 0, 0, 0, 1, 0 };
+
+                ColorFilter colorFilter = new ColorMatrixColorFilter(matrix);
+
+                drawable.setColorFilter(colorFilter);
+
+                mButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
             }
         } else {
             mButton.setVisibility(View.GONE);
@@ -463,6 +488,18 @@ public class UndoBarController extends LinearLayout {
                 setPadding(0, 0, 0, getNavigationBarHeight(getContext()));
             }
         }
+    }
+
+
+
+    private void changeBitmapColor(Bitmap sourceBitmap, int color) {
+        Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0,
+                sourceBitmap.getWidth() - 1, sourceBitmap.getHeight() - 1);
+        Paint p = new Paint();
+        ColorFilter filter = new LightingColorFilter(color, 1);
+        p.setColorFilter(filter);
+        Canvas canvas = new Canvas(resultBitmap);
+        canvas.drawBitmap(resultBitmap, 0, 0, p);
     }
 
     public interface UndoListener {

@@ -9,11 +9,7 @@
 
     <View
         android:id="@+id/undobar_divider"
-        android:layout_width="1dp"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/undobar_divider" />
+        style="@style/UndoBarDivider"/>
 
     <Button
         android:id="@+id/undobar_button"

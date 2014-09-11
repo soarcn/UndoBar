@@ -22,6 +22,9 @@
 
     <style name="UndoBarButton" parent="UndoBarButtonClassic" />
 
+    <style name="UndoBarDivider" parent="UndoBarDividerClassic"/>
+
+
     <style name="UndoBarClassic">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -88,12 +91,53 @@
         <item name="android:layout_marginLeft">25dp</item>
     </style>
 
-    <style name="UndoBarDivider">
+    <!--  Material styles -->
+
+    <style name="UndoBarMaterial" parent="UndoBarClassic">
+        <item name="android:padding">0.0dip</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:background">#FF323232</item>
+        <item name="android:maxHeight">80dp</item>
+    </style>
+
+
+    <style name="UndoBarButtonMaterial" parent="UndoBarButtonClassic">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/undobar_materail_button</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:textColor">@color/undobar_material_button_text_color</item>
+    </style>
+
+
+    <style name="UndoBarMessageMaterial" parent="UndoBarMessageClassic">
+        <item name="android:freezesText">true</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_gravity">start|center</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+    </style>
+
+
+    <style name="UndoBarDividerClassic">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:background">@drawable/undobar_divider</item>
+    </style>
+
+    <style name="UndoBarNoDivider">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:background">@null</item>
     </style>
 
 
