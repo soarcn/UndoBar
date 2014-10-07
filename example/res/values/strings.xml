@@ -3,6 +3,7 @@
     <string name="app_name">UndoBarExample</string>
     <string name="title_activity_undo_style">UndoStyle</string>
     <string name="title_activity_customize">Customize Style</string>
+    <string name="title_material_style">Material Style</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 </resources>

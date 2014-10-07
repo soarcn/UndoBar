@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cocosw.undobar.example"
-    android:versionCode="1"
-    android:versionName="1.0" >
-    <uses-sdk
-        android:minSdkVersion="6"
-        android:targetSdkVersion="17" />
+    package="com.cocosw.undobar.example">
     <application
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -34,6 +28,11 @@
         </activity>
         <activity
             android:name="com.cocosw.undobar.example.Customize"
+            android:label="@string/title_activity_customize" >
+        </activity>
+        <activity
+            android:theme="@style/MaterialTheme"
+            android:name="com.cocosw.undobar.example.SnackBar"
             android:label="@string/title_activity_customize" >
         </activity>
     </application>

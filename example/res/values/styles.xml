@@ -21,9 +21,8 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="UndoBar" parent="UndoBarMaterial"/>
-    <style name="UndoBarMessage" parent="UndoBarMessageMaterial"/>
-    <style name="UndoBarButton" parent="UndoBarButtonMaterial"/>
-    <style name="UndoBarDivider" parent="UndoBarNoDivider"/>
-    
+    <style name="MaterialTheme" parent="AppTheme">
+        <item name="undoBarStyle">@style/UndoBarMaterialStyle</item>
+    </style>
+
 </resources>

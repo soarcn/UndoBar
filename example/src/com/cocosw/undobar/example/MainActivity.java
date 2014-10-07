@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(id.button2).setOnClickListener(this);
 		findViewById(id.button3).setOnClickListener(this);
 		findViewById(id.button4).setOnClickListener(this);
+        findViewById(id.button5).setOnClickListener(this);
 	}
 
 	@Override
@@ -36,6 +37,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		case id.button4:
 			startActivity(new Intent(this, Customize.class));
 			break;
+        case id.button5:
+            startActivity(new Intent(this, SnackBar.class));
+            break;
 		default:
 			break;
 		}
