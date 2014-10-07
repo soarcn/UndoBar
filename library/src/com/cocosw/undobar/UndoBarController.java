@@ -102,6 +102,7 @@ public class UndoBarController extends LinearLayout {
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
     private boolean colorDrawable;
+    private boolean noicon;
 
 
 
@@ -212,16 +213,14 @@ public class UndoBarController extends LinearLayout {
         return undo;
     }
 
-    private static UndoBarController getBar(final Activity activity,
-                                         final CharSequence message, UndoListener listener,
-                                         Parcelable undoToken, boolean immediate, UndoBarStyle style,
-                                         int translucent) {
+    private static UndoBarController getBar(final Activity activity,UndoBar undobar) {
         UndoBarController undo = ensureView(activity);
-        if (style == null)
+        if (undobar.style == null)
             throw new IllegalArgumentException("style must not be empty.");
-        undo.style = style;
-        undo.setUndoListener(listener);
-        undo.translucent = translucent;
+        undo.style = undobar.style;
+        undo.setUndoListener(undobar.listener);
+        undo.translucent = undobar.translucent;
+        undo.noicon = undobar.noIcon;
         return undo;
     }
 
@@ -453,11 +452,13 @@ public class UndoBarController extends LinearLayout {
         mUndoMessage = message;
         mMessageView.setText(mUndoMessage, TextView.BufferType.SPANNABLE);
 
-        if (style.titleRes > 0) {
+    if (style.titleRes > 0) {
             mButton.setVisibility(View.VISIBLE);
             findViewById(id.undobar_divider).setVisibility(View.VISIBLE);
             mButton.setText(style.titleRes);
-            if (style.iconRes > 0) {
+            if (noicon) {
+                mButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            } else if (style.iconRes > 0) {
                 Drawable drawable = getResources().getDrawable(style.iconRes);
                 int iColor = mButton.getTextColors().getDefaultColor();
 
@@ -503,18 +504,6 @@ public class UndoBarController extends LinearLayout {
                 setPadding(0, 0, 0, getNavigationBarHeight(getContext()));
             }
         }
-    }
-
-
-
-    private void changeBitmapColor(Bitmap sourceBitmap, int color) {
-        Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0,
-                sourceBitmap.getWidth() - 1, sourceBitmap.getHeight() - 1);
-        Paint p = new Paint();
-        ColorFilter filter = new LightingColorFilter(color, 1);
-        p.setColorFilter(filter);
-        Canvas canvas = new Canvas(resultBitmap);
-        canvas.drawBitmap(resultBitmap, 0, 0, p);
     }
 
     public interface UndoListener {
@@ -671,7 +660,7 @@ public class UndoBarController extends LinearLayout {
             if (duration > 0) {
                 style.duration = duration;
             }
-            UndoBarController bar = UndoBarController.getBar(activity, message, listener, undoToken, !anim, style, translucent);
+            UndoBarController bar = UndoBarController.getBar(activity, this);
             bar.colorDrawable = colorDrawable;
             bar.showUndoBar(!anim, message, undoToken);
             return bar;
@@ -695,4 +684,6 @@ public class UndoBarController extends LinearLayout {
             UndoBarController.clear(activity);
         }
     }
+
+
 }
