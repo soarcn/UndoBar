@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="UndoBar" parent="UndoBarMaterial" />
-
-    <style name="UndoBarMessage" parent="UndoBarMessageMaterial" />
-
-    <style name="UndoBarButton" parent="UndoBarButtonMaterial" />
-
-    <style name="UndoBarDivider" parent="UndoBarNoDivider"/>
+    <style name="UndoBarDefaultStyle" parent="UndoBarMaterialStyle"/>
 </resources>

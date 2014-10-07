@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -36,6 +37,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -44,6 +46,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -69,12 +72,8 @@ public class UndoBarController extends LinearLayout {
             string.retry, -1);
     public static final UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
 
-
-    public static final UndoBarStyle MATERIAL_UNDOSTYLE = new UndoBarStyle(-1, string.undo).setAnim(snackIn(),snackOut());
-    public static final UndoBarStyle MATERIAL_RETRYSTYLE = new UndoBarStyle(-1, string.retry, -1).setAnim(snackIn(),snackOut());
-
-    private static Animation inAnimation = inFromBottomAnimation(null);
-    private static Animation outAnimation = outToBottomAnimation(null);
+    private static Animation inAnimation;
+    private static Animation outAnimation;
     private final TextView mMessageView;
     private final TextView mButton;
     private final Handler mHideHandler = new Handler();
@@ -102,44 +101,24 @@ public class UndoBarController extends LinearLayout {
     private String sNavBarOverride;
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
+    private boolean colorDrawable;
 
-    private static Animation snackIn() {
-        AnimationSet mInAnimationSet = new AnimationSet(false);
 
-        TranslateAnimation mSlideInAnimation = new TranslateAnimation(
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 1.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0.0f);
-
-        AlphaAnimation mFadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
-
-        mInAnimationSet.addAnimation(mSlideInAnimation);
-        mInAnimationSet.addAnimation(mFadeInAnimation);
-        mInAnimationSet.setDuration(500);
-        return mInAnimationSet;
-    }
-
-    private static Animation snackOut() {
-        AnimationSet mOutAnimationSet = new AnimationSet(false);
-
-        TranslateAnimation mSlideOutAnimation = new TranslateAnimation(
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
-                TranslateAnimation.RELATIVE_TO_PARENT, 0.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0.0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 1.0f);
-
-        AlphaAnimation mFadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
-
-        mOutAnimationSet.addAnimation(mSlideOutAnimation);
-        mOutAnimationSet.addAnimation(mFadeOutAnimation);
-        mOutAnimationSet.setDuration(500);
-        return mOutAnimationSet;
-    }
 
     public UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
+        TypedArray ta =context.getTheme().obtainStyledAttributes(new int[]{R.attr.undoBarStyle});
+        int style = ta.getResourceId(0,R.style.UndoBarDefaultStyle);
+        context.getTheme().applyStyle(style,true);
+        ta.recycle();
+
+        ta =context.getTheme().obtainStyledAttributes(new int[]{R.attr.inAnimation,R.attr.outAnimation});
+        inAnimation = AnimationUtils.loadAnimation(context,ta.getResourceId(0,R.anim.undobar_classic_in_anim));
+        outAnimation = AnimationUtils.loadAnimation(context,ta.getResourceId(1,R.anim.undobar_classic_out_anim));
+
         LayoutInflater.from(context).inflate(R.layout.undobar, this, true);
+        ta.recycle();
+
         mMessageView = (TextView) findViewById(R.id.undobar_message);
         mButton = (TextView) findViewById(id.undobar_button);
         mButton.setOnClickListener(
@@ -195,26 +174,6 @@ public class UndoBarController extends LinearLayout {
         }
     }
 
-    private static Animation outToBottomAnimation(
-            final android.view.animation.Animation.AnimationListener animationlistener) {
-        final TranslateAnimation translateanimation = new TranslateAnimation(2,
-                0F, 2, 0F, 2, 0F, 2, 1F);
-        translateanimation.setDuration(500L);
-        translateanimation.setInterpolator(new AnticipateOvershootInterpolator(
-                1.0f));
-        translateanimation.setAnimationListener(animationlistener);
-        return translateanimation;
-    }
-
-    private static Animation inFromBottomAnimation(
-            final android.view.animation.Animation.AnimationListener animationlistener) {
-        final TranslateAnimation translateanimation = new TranslateAnimation(2,
-                0F, 2, 0F, 2, 1F, 2, 0F);
-        translateanimation.setDuration(500L);
-        translateanimation.setInterpolator(new OvershootInterpolator(1.0f));
-        translateanimation.setAnimationListener(animationlistener);
-        return translateanimation;
-    }
 
     @Deprecated
     /**
@@ -249,6 +208,19 @@ public class UndoBarController extends LinearLayout {
         undo.style = style;
         undo.setUndoListener(listener);
         undo.showUndoBar(immediate, message, undoToken);
+        undo.translucent = translucent;
+        return undo;
+    }
+
+    private static UndoBarController getBar(final Activity activity,
+                                         final CharSequence message, UndoListener listener,
+                                         Parcelable undoToken, boolean immediate, UndoBarStyle style,
+                                         int translucent) {
+        UndoBarController undo = ensureView(activity);
+        if (style == null)
+            throw new IllegalArgumentException("style must not be empty.");
+        undo.style = style;
+        undo.setUndoListener(listener);
         undo.translucent = translucent;
         return undo;
     }
@@ -329,6 +301,7 @@ public class UndoBarController extends LinearLayout {
         }
     }
 
+    @Deprecated
     /**
      * Change the default In/Out animation
      *
@@ -434,11 +407,14 @@ public class UndoBarController extends LinearLayout {
             setVisibility(View.GONE);
         } else {
             clearAnimation();
+            Animation anim;
             if (style.outAnimation != null)
-                startAnimation(style.outAnimation);
+                anim = (style.outAnimation);
             else
-                startAnimation(outAnimation);
+                anim = (outAnimation);
+            startAnimation(anim);
             setVisibility(View.GONE);
+
         }
     }
 
@@ -485,18 +461,20 @@ public class UndoBarController extends LinearLayout {
                 Drawable drawable = getResources().getDrawable(style.iconRes);
                 int iColor = mButton.getTextColors().getDefaultColor();
 
-                int red = (iColor & 0xFF0000) / 0xFFFF;
-                int green = (iColor & 0xFF00) / 0xFF;
-                int blue = iColor & 0xFF;
+                if (colorDrawable) {
+                    int red = (iColor & 0xFF0000) / 0xFFFF;
+                    int green = (iColor & 0xFF00) / 0xFF;
+                    int blue = iColor & 0xFF;
 
-                float[] matrix = { 0, 0, 0, 0, red
-                        , 0, 0, 0, 0, green
-                        , 0, 0, 0, 0, blue
-                        , 0, 0, 0, 1, 0 };
+                    float[] matrix = {0, 0, 0, 0, red
+                            , 0, 0, 0, 0, green
+                            , 0, 0, 0, 0, blue
+                            , 0, 0, 0, 1, 0};
 
-                ColorFilter colorFilter = new ColorMatrixColorFilter(matrix);
+                    ColorFilter colorFilter = new ColorMatrixColorFilter(matrix);
 
-                drawable.setColorFilter(colorFilter);
+                    drawable.setColorFilter(colorFilter);
+                }
 
                 mButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
             }
@@ -549,6 +527,9 @@ public class UndoBarController extends LinearLayout {
         void onUndo(Parcelable token);
     }
 
+    /**
+     * Advanced callback listener if you want to get notification when undobar is hided or cleared.
+     */
     public interface AdvancedUndoListener extends UndoListener {
         /**
          * The callback function will be called when the Undobar fade out after duration without button clicked.
@@ -557,6 +538,9 @@ public class UndoBarController extends LinearLayout {
          */
         void onHide(Parcelable token);
 
+        /**
+         * The callback function will be called when the clear function been called
+         */
         void onClear();
     }
 
@@ -573,6 +557,8 @@ public class UndoBarController extends LinearLayout {
         private Parcelable undoToken;
         private UndoListener listener;
         private int translucent = -1;
+        private boolean colorDrawable = true;
+        private boolean noIcon=false;
 
         public UndoBar(Activity activity) {
             this.activity = activity;
@@ -591,6 +577,11 @@ public class UndoBarController extends LinearLayout {
          */
         public UndoBar message(CharSequence message) {
             this.message = message;
+            return this;
+        }
+
+        public UndoBar noicon(boolean b) {
+            noIcon = b;
             return this;
         }
 
@@ -654,6 +645,16 @@ public class UndoBarController extends LinearLayout {
         }
 
         /**
+         * Whether the drawable in button should be rendered to the same color that the button text have.
+         * @param enable
+         * @return
+         */
+        public UndoBar colorDrawable(boolean enable) {
+            colorDrawable = enable;
+            return this;
+        }
+
+        /**
          * Show undobar with animation or not
          *
          * @param anim show animation or not
@@ -670,7 +671,10 @@ public class UndoBarController extends LinearLayout {
             if (duration > 0) {
                 style.duration = duration;
             }
-            return UndoBarController.show(activity, message, listener, undoToken, !anim, style, translucent);
+            UndoBarController bar = UndoBarController.getBar(activity, message, listener, undoToken, !anim, style, translucent);
+            bar.colorDrawable = colorDrawable;
+            bar.showUndoBar(!anim, message, undoToken);
+            return bar;
         }
 
         /**
@@ -682,6 +686,11 @@ public class UndoBarController extends LinearLayout {
             return show(true);
         }
 
+        /**
+         *
+         * Hide all undo bar immediately
+         *
+         */
         public void clear() {
             UndoBarController.clear(activity);
         }
