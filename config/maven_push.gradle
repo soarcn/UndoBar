@@ -125,7 +125,7 @@ afterEvaluate { project ->
     }
 
     artifacts {
-        //    archives androidReleaseJar
+        //    archives jarRelease
         archives androidSourcesJar
         archives androidJavadocsJar
         archives apklib

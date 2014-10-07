@@ -20,21 +20,18 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:+'
+        classpath 'com.android.tools.build:gradle:0.13.1'
     }
 }
 
 allprojects {
-    groupId = POM_GROUP_ID
-    artifactId = POM_ARTIFACT_ID
+    group = POM_GROUP_ID
     version = POM_VERSION
 
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "file:///D:/develop/mvn" }
-        maven { url "https://raw.github.com/soarcn/mvn/master" }
     }
 
     tasks.withType(JavaCompile) {
