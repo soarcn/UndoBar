@@ -2,6 +2,8 @@ package com.cocosw.undobar;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.view.animation.Animation;
 
 public class UndoBarStyle implements Parcelable {
@@ -22,7 +24,7 @@ public class UndoBarStyle implements Parcelable {
      * @param icon  icon for the button right side
      * @param title title for the button right side
      */
-    public UndoBarStyle(final int icon, final int title) {
+    public UndoBarStyle(@DrawableRes final int icon, @StringRes final int title) {
         iconRes = icon;
         titleRes = title;
     }
@@ -34,7 +36,7 @@ public class UndoBarStyle implements Parcelable {
      * @param title    title for the button right side
      * @param duration duration the undobar will stay in screen
      */
-    public UndoBarStyle(final int icon, final int title, final long duration) {
+    public UndoBarStyle(@DrawableRes final int icon, @StringRes final int title, final long duration) {
         this(icon, title);
         this.duration = duration;
     }
@@ -47,7 +49,7 @@ public class UndoBarStyle implements Parcelable {
      * @param duration duration the undobar will stay in screen
      * @param bg       background image for undobar
      */
-    public UndoBarStyle(final int icon, final int title, final int bg,
+    public UndoBarStyle(@DrawableRes final int icon, @StringRes final int title, @DrawableRes final int bg,
                         final long duration) {
         this(icon, title, duration);
         bgRes = bg;
@@ -97,7 +99,7 @@ public class UndoBarStyle implements Parcelable {
     /*
     * Parcelable-related methods.
     */
-    public UndoBarStyle(Parcel source) {
+    UndoBarStyle(Parcel source) {
         iconRes = source.readInt();
         titleRes = source.readInt();
         bgRes = source.readInt();

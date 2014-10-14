@@ -30,6 +30,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -283,7 +286,7 @@ public class UndoBarController extends LinearLayout {
      *
      * @param activity The activity where the undobar in
      */
-    public static void clear(final Activity activity) {
+    public static void clear(@NonNull final Activity activity) {
         final UndoBarController v = UndoBarController.getView(activity);
         if (v != null) {
             v.setVisibility(View.GONE);
@@ -509,7 +512,7 @@ public class UndoBarController extends LinearLayout {
          *
          * @param token
          */
-        void onUndo(Parcelable token);
+        void onUndo(@Nullable Parcelable token);
     }
 
     /**
@@ -521,7 +524,7 @@ public class UndoBarController extends LinearLayout {
          *
          * @param token
          */
-        void onHide(Parcelable token);
+        void onHide(@Nullable Parcelable token);
 
         /**
          * The callback function will be called when the clear function been called
@@ -545,11 +548,11 @@ public class UndoBarController extends LinearLayout {
         private boolean colorDrawable = true;
         private boolean noIcon = false;
 
-        public UndoBar(Activity activity) {
+        public UndoBar(@NonNull Activity activity) {
             this.activity = activity;
         }
 
-        public UndoBar style(UndoBarStyle style) {
+        public UndoBar style(@NonNull UndoBarStyle style) {
             this.style = style;
             return this;
         }
@@ -560,7 +563,7 @@ public class UndoBarController extends LinearLayout {
          * @param message message
          * @return
          */
-        public UndoBar message(CharSequence message) {
+        public UndoBar message(@NonNull CharSequence message) {
             this.message = message;
             return this;
         }
@@ -576,7 +579,7 @@ public class UndoBarController extends LinearLayout {
          * @param messageRes
          * @return
          */
-        public UndoBar message(int messageRes) {
+        public UndoBar message(@StringRes int messageRes) {
             this.message = activity.getText(messageRes);
             return this;
         }
@@ -599,7 +602,7 @@ public class UndoBarController extends LinearLayout {
          * @param mUndoListener
          * @return
          */
-        public UndoBar listener(UndoListener mUndoListener) {
+        public UndoBar listener(@NonNull UndoListener mUndoListener) {
             this.listener = mUndoListener;
             return this;
         }
@@ -611,7 +614,7 @@ public class UndoBarController extends LinearLayout {
          * @param undoToken
          * @return
          */
-        public UndoBar token(Parcelable undoToken) {
+        public UndoBar token(@NonNull Parcelable undoToken) {
             this.undoToken = undoToken;
             return this;
         }
