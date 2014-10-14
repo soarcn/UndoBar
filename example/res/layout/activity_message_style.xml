@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MessageStyle" >
+    tools:context=".MessageStyle">
     <!-- Login progress -->
     <LinearLayout
         android:id="@+id/login_status"
@@ -9,12 +9,14 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
+
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
+
         <TextView
             android:id="@+id/login_status_message"
             android:layout_width="wrap_content"
@@ -22,16 +24,19 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:ignore="UnusedAttribute" />
     </LinearLayout>
     <!-- Login form -->
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+
         <LinearLayout
             style="@style/LoginFormContainer"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -40,6 +45,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
+
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -51,6 +57,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
+
             <Button
                 android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
@@ -59,7 +66,8 @@
                 android:layout_marginTop="16dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
-                android:text="@string/action_sign_in_register" />
+                android:text="@string/action_sign_in_register"
+                tools:ignore="RtlHardcoded" />
         </LinearLayout>
     </ScrollView>
 </merge>

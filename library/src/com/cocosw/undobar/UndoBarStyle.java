@@ -83,14 +83,14 @@ public class UndoBarStyle implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
+        if (!(o instanceof UndoBarStyle))
+            return false;
 
         UndoBarStyle that = (UndoBarStyle) o;
-
         return bgRes == that.bgRes &&
                 duration == that.duration &&
                 iconRes == that.iconRes &&
                 titleRes == that.titleRes;
-
     }
 
 

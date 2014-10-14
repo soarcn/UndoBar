@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" android:gravity="center"
+    tools:context=".MainActivity"
+    android:gravity="center"
     android:padding="16dp">
+
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
@@ -11,28 +13,35 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="UndoBar style" />
+        android:text="UndoBar style"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:text="Retry style" />
+        android:text="Retry style"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:text="Message style" />
+        android:text="Message style"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/button4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:text="Customize style" />
+        android:text="Customize style"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/button5"
@@ -40,5 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
-        android:text="Material style" />
+        android:text="Material style"
+        tools:ignore="HardcodedText" />
 </RelativeLayout>

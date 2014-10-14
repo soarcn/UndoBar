@@ -6,13 +6,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Customize" >
+    tools:context=".Customize">
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You can create you own style for UndoBar,like backgroud and in/out animation."
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:layout_marginTop="16dp"
         android:id="@+id/button1"
@@ -20,5 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:text="Button" />
+        android:text="Button"
+        tools:ignore="HardcodedText" />
 </RelativeLayout>

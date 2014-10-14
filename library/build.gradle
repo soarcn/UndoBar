@@ -4,7 +4,7 @@ apply from: '../config/android-library.gradle'
 apply from: '../config/maven_push.gradle'
 
 dependencies {
-
+    compile 'com.android.support:support-annotations:20.0.0'
 }
 
 android {
