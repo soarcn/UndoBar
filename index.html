@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,8 +20,8 @@
     <header>
       <div class="inner">
         <h1>UndoBar</h1>
-        <h2>The UI component for Android advanced UI pattern undo bar, used in Gmail app, created by roman nurik</h2>
-        <a href="https://github.com/soarcn/UndoBar" class="button"><small>View project on</small>GitHub</a>
+        <h2>The UI component for Android advanced UI pattern undo bar, used in Gmail app</h2>
+        <a href="https://github.com/soarcn/UndoBar" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
 
@@ -29,64 +29,68 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a name="undobar" class="anchor" href="#undobar"><span class="octicon octicon-link"></span></a>UndoBar</h1>
+<a id="undobar" class="anchor" href="#undobar" aria-hidden="true"><span class="octicon octicon-link"></span></a>UndoBar</h1>
 
 <p>This is a implementation for Android advanced UI pattern undo-bar, used in Gmail app, create by roman nurik</p>
 
-<p>UndoBar was modify from Roman(<a href="https://github.com/romannurik" class="user-mention">@romannurik</a>)'s undobar concept (<a href="https://code.google.com/p/romannurik-code/">https://code.google.com/p/romannurik-code/</a>), and backport it to Android 2.x and make it easier to use</p>
+<p>UndoBar was modified from Roman(<a href="https://github.com/romannurik" class="user-mention">@romannurik</a>)'s undobar concept (<a href="https://code.google.com/p/romannurik-code/">https://code.google.com/p/romannurik-code/</a>), and backport it to Android 2.x and make it easier to use</p>
 
-<p><img src="https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true" alt="UndoBar Sample"><img src="https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true" alt="UndoBar Sample"></p>
-
-<h1>
-<a name="how-to-use-this-libary" class="anchor" href="#how-to-use-this-libary"><span class="octicon octicon-link"></span></a>How to use this libary</h1>
-
-<ul>
-<li>Download this libary, import to your IDE (eclipse...) as libary project.</li>
-<li>Using Gradle(from 0.5):</li>
-</ul><div class="highlight highlight-xml"><pre>compile 'com.cocosw:undobar:0.6@aar'
-</pre></div>
-
-<ul>
-<li>Using Maven(&lt;0.4)</li>
-</ul><div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.cocosw<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>undobar<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.4<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;type&gt;</span>apklib<span class="nt">&lt;/type&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</pre></div>
+<p><img src="https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true" alt="UndoBar Sample">
+<img src="https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true" alt="UndoBar Sample">
+<img src="https://github.com/soarcn/UndoBar/blob/master/art/refresh.png?raw=true" alt="UndoBar Sample">
+<img src="https://github.com/soarcn/UndoBar/blob/master/art/customize.png?raw=true" alt="UndoBar Sample">
+<img src="https://github.com/soarcn/UndoBar/blob/master/art/material.png?raw=true" alt="UndoBar Sample"></p>
 
 <h1>
-<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h1>
+<a id="how-to-use-this-library" class="anchor" href="#how-to-use-this-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use this library</h1>
 
 <ul>
-<li>You can use UndoBar by just one line code</li>
-</ul><div class="highlight highlight-java"><pre>    <span class="n">UndoBarController</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="s">"Undo-bar title"</span> <span class="o">,</span> <span class="n">listener</span><span class="o">,</span> <span class="n">undoToken</span><span class="o">);</span>
-</pre></div>
+<li>Download this library, import to your IDE (eclipse...) as a library project.</li>
+<li>
+<p>Using Gradle(from 0.5)</p>
 
-<ul>
-<li>UndoBar support customize style with background/icon/duration/animation attribution. library provides 3 default styles. You can use them in different purpose like undo,refresh, or just use it as replacement of Toaster</li>
-<li>UndoBar will switch to KitKat look and feel in API-19 target.</li>
-<li>You can overwrite style in your project to change the look and feel. For example, you can use following lines in your style.xml to always use KitKat style UndoBar.</li>
-</ul><div class="highlight highlight-xml"><pre>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBar"</span> <span class="na">parent=</span><span class="s">"UndoBarKitKat"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBarMessage"</span> <span class="na">parent=</span><span class="s">"UndoBarMessageKitKat"</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"UndoBarButton"</span> <span class="na">parent=</span><span class="s">"UndoBarButtonKitKat"</span><span class="nt">/&gt;</span>
-</pre></div>
+<div class="highlight highlight-groovy"><pre>compile <span class="s1">'com.cocosw:undobar:1.+@aar'</span> </pre></div>
+</li>
+</ul>
 
 <h1>
-<a name="contribute" class="anchor" href="#contribute"><span class="octicon octicon-link"></span></a>Contribute</h1>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h1>
+
+<ul>
+<li>
+<p>You can also use UndoBar with builder style.</p>
+
+<div class="highlight highlight-java"><pre><span class="k">new</span> <span class="kt">UndoBar</span>(getActivity())<span class="o">.</span>message(<span class="s2">"Undo-bar title"</span>)<span class="o">.</span>listener(listener)<span class="o">.</span>show();</pre></div>
+</li>
+<li>
+<p>Or you can use UndoBar by just one line code (Deprecated from 1.4)</p>
+
+<div class="highlight highlight-java"><pre><span class="kt">UndoBarController</span><span class="o">.</span>show(getActivity(), <span class="s2">"Undo-bar title"</span> , listener, undoToken);</pre></div>
+</li>
+<li><p>UndoBar support customize style with background/icon/duration/animation attribution.</p></li>
+<li>UndoBar provides 3 default styles. You can use them for different purposes like undo,refresh, or just use it as replacement of toasts.</li>
+<li>UndoBar will switch to KitKat look and feel in API-19 target and after.</li>
+<li>UndoBar will determine if tranlucent mode(4.4) is using and adjust its position.</li>
+<li>
+<p>You can set theme in your appliation to change the look and feel. For example, you can use following lines in your style.xml to always use material style UndoBar.</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="nt">style</span> <span class="na">name</span>=<span class="s2">"MaterialTheme"</span> <span class="na">parent</span>=<span class="s2">"android:Theme.Light"</span>&gt;
+    &lt;<span class="nt">item</span> <span class="na">name</span>=<span class="s2">"undoBarStyle"</span>&gt;@style/UndoBarMaterialStyle&lt;/<span class="nt">item</span>&gt;
+&lt;/<span class="nt">style</span>&gt;</pre></div>
+</li>
+</ul>
+
+<h1>
+<a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h1>
 
 <ul>
 <li>Feel free to fork it</li>
-</ul><h1>
-<a name="other" class="anchor" href="#other"><span class="octicon octicon-link"></span></a>Other</h1>
+</ul>
 
-<ul>
-<li>Works perfectly with Crouton/Menudrawer/ABS</li>
-</ul><h1>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
 
-<pre><code>Copyright 2011, 2012 Liao Kai
+<pre><code>Copyright 2011, 2014 Liao Kai
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
