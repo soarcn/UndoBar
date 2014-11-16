@@ -55,6 +55,7 @@ public class UndoBarStyle implements Parcelable {
         bgRes = bg;
     }
 
+    @Deprecated
     /**
      * Set Animation for current style
      *
@@ -96,30 +97,27 @@ public class UndoBarStyle implements Parcelable {
     }
 
 
-    /*
-    * Parcelable-related methods.
-    */
-    UndoBarStyle(Parcel source) {
-        iconRes = source.readInt();
-        titleRes = source.readInt();
-        bgRes = source.readInt();
-        duration = source.readLong();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(iconRes);
-        dest.writeInt(titleRes);
-        dest.writeInt(bgRes);
-        dest.writeLong(duration);
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public static final Parcelable.Creator<UndoBarStyle> CREATOR = new Parcelable.Creator<UndoBarStyle>() {
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.iconRes);
+        dest.writeInt(this.titleRes);
+        dest.writeInt(this.bgRes);
+        dest.writeLong(this.duration);
+    }
+
+    private UndoBarStyle(Parcel in) {
+        this.iconRes = in.readInt();
+        this.titleRes = in.readInt();
+        this.bgRes = in.readInt();
+        this.duration = in.readLong();
+    }
+
+    public static final Creator<UndoBarStyle> CREATOR = new Creator<UndoBarStyle>() {
         public UndoBarStyle createFromParcel(Parcel source) {
             return new UndoBarStyle(source);
         }

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.cocosw.undobar.UndoBarController;
@@ -20,8 +19,8 @@ public class Customize extends Activity implements UndoListener {
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final UndoBarStyle style = new UndoBarStyle(drawable.button, string.ok,
-				drawable.g, 2000).setAnim(AnimationUtils.loadAnimation(this,android.R.anim.fade_in),AnimationUtils.loadAnimation(this,android.R.anim.fade_out));
-		setContentView(R.layout.activity_customize);
+                drawable.g, 2000);
+        setContentView(R.layout.activity_customize);
 		findViewById(id.button1).setOnClickListener(new View.OnClickListener() {
 
 			@Override
