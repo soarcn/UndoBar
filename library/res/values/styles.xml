@@ -22,15 +22,11 @@
 
     <style name="UndoBarButton" parent="UndoBarButtonClassic" />
 
-    <style name="UndoBarDivider" parent="UndoBarDividerClassic"/>
+    <style name="UndoBarDivider" parent="UndoBarDividerClassic" />
 
     <!-- Predefined styles. -->
 
-    <!--<style name="Theme.UndoBar" parent="android:Theme">-->
-    <!--<item name="undoBarStyle">@style/UndoBarClassicStyle</item>-->
-    <!--</style>-->
-
-    <style name="UndoBarDefaultStyle" parent="UndoBarClassicStyle"/>
+    <style name="UndoBarDefaultStyle" parent="UndoBarClassicStyle" />
 
     <style name="UndoBarClassicStyle">
         <item name="containerStyle">@style/UndoBarClassic</item>
