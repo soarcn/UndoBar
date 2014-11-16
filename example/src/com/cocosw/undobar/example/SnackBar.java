@@ -15,6 +15,8 @@ import java.util.Arrays;
 
 public class SnackBar extends ListActivity implements UndoBarController.AdvancedUndoListener {
 
+    private UndoBarController.UndoBar undobar;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +27,13 @@ public class SnackBar extends ListActivity implements UndoBarController.Advanced
                         "Item 9", "Item 10", "Item 11", "Item 12", "Item 13",
                         "Item 14", "Item 15",})
         ));
+        undobar = new UndoBarController.UndoBar(this).listener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        new UndoBarController.UndoBar(this).clear();
+        undobar.clear();
     }
 
     @Override
@@ -64,5 +67,17 @@ public class SnackBar extends ListActivity implements UndoBarController.Advanced
     @Override
     public void onClear() {
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        undobar.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        undobar.onRestoreInstanceState(savedInstanceState);
     }
 }

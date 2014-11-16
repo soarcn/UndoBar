@@ -29,10 +29,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -50,19 +52,27 @@ import com.cocosw.undobar.R.id;
 import com.cocosw.undobar.R.string;
 
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 public class UndoBarController extends LinearLayout {
 
+    private static final String SAVED_STATE = "_state_undobar";
+    private static final String STATE_CURRENT_MESSAGE = "_state_undobar_current";
     private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
     private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
     private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
 
     public static final UndoBarStyle UNDOSTYLE = new UndoBarStyle(
             drawable.ic_undobar_undo, string.undo);
-    private UndoBarStyle style = UndoBarController.UNDOSTYLE;
     public static final UndoBarStyle RETRYSTYLE = new UndoBarStyle(drawable.ic_retry,
             string.retry, -1);
     public static final UndoBarStyle MESSAGESTYLE = new UndoBarStyle(-1, -1, 5000);
+
+
+    private LinkedList<Message> mMessages = new LinkedList<>();
+    private Message currentMessage;
+    private boolean mShowing;
+
 
     private static Animation inAnimation;
     private static Animation outAnimation;
@@ -72,30 +82,26 @@ public class UndoBarController extends LinearLayout {
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
-            if (mUndoListener instanceof AdvancedUndoListener) {
-                ((AdvancedUndoListener) mUndoListener).onHide(mUndoToken);
+            if (listener instanceof AdvancedUndoListener) {
+                ((AdvancedUndoListener) listener).onHide(currentMessage.undoToken);
             }
-            if (mImmediate) {
+            if (currentMessage.immediate) {
                 hideUndoBar(true);
             } else {
                 hideUndoBar(false);
             }
         }
     };
-    private UndoListener mUndoListener;
-    private boolean mImmediate;
-    // State objects
-    private Parcelable mUndoToken;
-    private CharSequence mUndoMessage;
     //Only for KitKat translucent mode
-    private int translucent = -1;
     private boolean mInPortrait;
     private String sNavBarOverride;
     private boolean mNavBarAvailable;
     private float mSmallestWidthDp;
-    private boolean colorDrawable;
-    private boolean noicon;
+    private UndoListener listener;
 
+    private void addMessage(Message message) {
+        mMessages.add(message);
+    }
 
     public UndoBarController(final Context context, final AttributeSet attrs) {
         super(context, attrs);
@@ -117,10 +123,10 @@ public class UndoBarController extends LinearLayout {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(final View view) {
-                        if (mUndoListener != null) {
-                            mUndoListener.onUndo(mUndoToken);
+                        if (listener != null) {
+                            listener.onUndo(currentMessage.undoToken);
                         }
-                        if (mImmediate) {
+                        if (currentMessage.immediate) {
                             hideUndoBar(true);
                         } else {
                             hideUndoBar(false);
@@ -129,7 +135,7 @@ public class UndoBarController extends LinearLayout {
                 }
         );
 
-        hideUndoBar(true);
+        setVisibility(View.GONE);
 
         // https://github.com/jgilfelt/SystemBarTint/blob/master/library/src/com/readystatesoftware/systembartint/SystemBarTintManager.java
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -195,24 +201,15 @@ public class UndoBarController extends LinearLayout {
                                          final CharSequence message, UndoListener listener,
                                          Parcelable undoToken, boolean immediate, UndoBarStyle style,
                                          int translucent) {
-        UndoBarController undo = ensureView(activity);
         if (style == null)
             throw new IllegalArgumentException("style must not be empty.");
-        undo.style = style;
-        undo.setUndoListener(listener);
-        undo.showUndoBar(immediate, message, undoToken);
-        undo.translucent = translucent;
-        return undo;
+        return new UndoBar(activity).message(message).listener(listener).token(undoToken).style(style).translucent((translucent == 1)).show(!immediate);
+
     }
 
     private static UndoBarController getBar(final Activity activity, UndoBar undobar) {
         UndoBarController undo = ensureView(activity);
-        if (undobar.style == null)
-            throw new IllegalArgumentException("style must not be empty.");
-        undo.style = undobar.style;
-        undo.setUndoListener(undobar.listener);
-        undo.translucent = undobar.translucent;
-        undo.noicon = undobar.noIcon;
+        undo.listener = undobar.listener;
         return undo;
     }
 
@@ -240,8 +237,7 @@ public class UndoBarController extends LinearLayout {
     public static UndoBarController show(final Activity activity,
                                          final int message, final UndoListener listener,
                                          final Parcelable undoToken, final boolean immediate) {
-        return UndoBarController.show(activity, activity.getText(message),
-                listener, undoToken, immediate, UndoBarController.UNDOSTYLE);
+        return new UndoBar(activity).message(message).listener(listener).token(undoToken).show(false);
     }
 
     @SuppressWarnings("deprecation")
@@ -249,8 +245,7 @@ public class UndoBarController extends LinearLayout {
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener,
                                          final Parcelable undoToken) {
-        return UndoBarController.show(activity, message, listener, undoToken,
-                false, UndoBarController.UNDOSTYLE);
+        return new UndoBar(activity).message(message).listener(listener).token(undoToken).show();
     }
 
     @SuppressWarnings("deprecation")
@@ -258,24 +253,21 @@ public class UndoBarController extends LinearLayout {
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener,
                                          final UndoBarStyle style) {
-        return UndoBarController.show(activity, message, listener, null, false,
-                style);
+        return new UndoBar(activity).message(message).listener(listener).style(style).show();
     }
 
     @SuppressWarnings("deprecation")
     @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message, final UndoListener listener) {
-        return UndoBarController.show(activity, message, listener, null, false,
-                UndoBarController.UNDOSTYLE);
+        return new UndoBar(activity).message(message).listener(listener).show();
     }
 
     @SuppressWarnings("deprecation")
     @Deprecated
     public static UndoBarController show(final Activity activity,
                                          final CharSequence message) {
-        return UndoBarController.show(activity, message, null, null, false,
-                UndoBarController.MESSAGESTYLE);
+        return new UndoBar(activity).message(message).show();
     }
 
     @Deprecated
@@ -291,8 +283,8 @@ public class UndoBarController extends LinearLayout {
         if (v != null) {
             v.setVisibility(View.GONE);
             v.mHideHandler.removeCallbacks(v.mHideRunnable);
-            if (v.mUndoListener instanceof AdvancedUndoListener) {
-                ((AdvancedUndoListener) v.mUndoListener).onClear();
+            if (v.listener instanceof AdvancedUndoListener) {
+                ((AdvancedUndoListener) v.listener).onClear();
             }
         }
     }
@@ -391,77 +383,90 @@ public class UndoBarController extends LinearLayout {
      * @return
      */
     public UndoListener getUndoListener() {
-        return mUndoListener;
+        return listener;
     }
 
-    private void setUndoListener(final UndoListener mUndoListener) {
-        this.mUndoListener = mUndoListener;
-    }
 
     private void hideUndoBar(final boolean immediate) {
         mHideHandler.removeCallbacks(mHideRunnable);
-        mUndoToken = null;
+        final Message next = mMessages.poll();
         if (immediate) {
             setVisibility(View.GONE);
+            if (next != null)
+                showUndoBar(next);
         } else {
             clearAnimation();
             Animation anim;
-            if (style.outAnimation != null)
-                anim = (style.outAnimation);
+            if (currentMessage.style.outAnimation != null)
+                anim = (currentMessage.style.outAnimation);
             else
                 anim = (outAnimation);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (next != null)
+                        showUndoBar(next);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
             startAnimation(anim);
             setVisibility(View.GONE);
-
         }
+        currentMessage = null;
+        mShowing = false;
     }
 
     @Override
-    public Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         final Bundle outState = new Bundle();
-        outState.putBoolean("immediate", mImmediate);
-        outState.putCharSequence("undo_message", mUndoMessage);
-        outState.putParcelable("undo_token", mUndoToken);
-        outState.putParcelable("undo_style", style);
-        outState.putInt("visible", getVisibility());
+        final int count = mMessages.size();
+        final Message[] messages = new Message[count];
+        mMessages.toArray(messages);
+        outState.putParcelableArray(SAVED_STATE, messages);
+        outState.putParcelable(STATE_CURRENT_MESSAGE, currentMessage);
         return outState;
     }
 
 
     @Override
-    public void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof Bundle) {
-            final Bundle bundle = (Bundle) state;
-            mImmediate = bundle.getBoolean("immediate");
-            mUndoMessage = bundle.getCharSequence("undo_message");
-            mUndoToken = bundle.getParcelable("undo_token");
-            style = bundle.getParcelable("undo_style");
-            if (bundle.getInt("visible") == View.VISIBLE)
-                showUndoBar(true, mUndoMessage, mUndoToken);
+            currentMessage = ((Bundle) state).getParcelable(STATE_CURRENT_MESSAGE);
+            if (currentMessage != null) {
+                Parcelable[] messages = ((Bundle) state).getParcelableArray(SAVED_STATE);
+                for (Parcelable p : messages) {
+                    mMessages.add((Message) p);
+                }
+            }
             return;
         }
         super.onRestoreInstanceState(state);
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void showUndoBar(final boolean immediate,
-                             final CharSequence message, final Parcelable undoToken) {
-        mImmediate = immediate;
-        mUndoToken = undoToken;
-        mUndoMessage = message;
-        mMessageView.setText(mUndoMessage, TextView.BufferType.SPANNABLE);
-
-        if (style.titleRes > 0) {
+    private void showUndoBar(@NonNull Message msg) {
+        currentMessage = msg;
+        mMessageView.setText(currentMessage.message, TextView.BufferType.SPANNABLE);
+        if (currentMessage.style.titleRes > 0) {
             mButton.setVisibility(View.VISIBLE);
             findViewById(id.undobar_divider).setVisibility(View.VISIBLE);
-            mButton.setText(style.titleRes);
-            if (noicon) {
+            mButton.setText(currentMessage.style.titleRes);
+            if (currentMessage.noIcon) {
                 mButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            } else if (style.iconRes > 0) {
-                Drawable drawable = getResources().getDrawable(style.iconRes);
+            } else if (currentMessage.style.iconRes > 0) {
+                Drawable drawable = getResources().getDrawable(currentMessage.style.iconRes);
                 int iColor = mButton.getTextColors().getDefaultColor();
 
-                if (colorDrawable) {
+                if (currentMessage.colorDrawable) {
                     int red = (iColor & 0xFF0000) / 0xFFFF;
                     int green = (iColor & 0xFF00) / 0xFF;
                     int blue = iColor & 0xFF;
@@ -482,24 +487,24 @@ public class UndoBarController extends LinearLayout {
             mButton.setVisibility(View.GONE);
             findViewById(id.undobar_divider).setVisibility(View.GONE);
         }
-        if (style.bgRes > 0)
-            findViewById(id._undobar).setBackgroundResource(style.bgRes);
+        if (currentMessage.style.bgRes > 0)
+            findViewById(id._undobar).setBackgroundResource(currentMessage.style.bgRes);
 
         mHideHandler.removeCallbacks(mHideRunnable);
-        if (style.duration > 0) {
-            mHideHandler.postDelayed(mHideRunnable, style.duration);
+        if (currentMessage.style.duration > 0) {
+            mHideHandler.postDelayed(mHideRunnable, currentMessage.style.duration);
         }
-        if (!immediate) {
+        if (!currentMessage.immediate) {
             clearAnimation();
-            if (style.inAnimation != null)
-                startAnimation(style.inAnimation);
+            if (currentMessage.style.inAnimation != null)
+                startAnimation(currentMessage.style.inAnimation);
             else
                 startAnimation(inAnimation);
         }
         setVisibility(View.VISIBLE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && translucent != 0) {
-            if (translucent == 1 || mNavBarAvailable) {
+        mShowing = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && currentMessage.translucent != 0) {
+            if (currentMessage.translucent == 1 || mNavBarAvailable) {
                 setPadding(0, 0, 0, getNavigationBarHeight(getContext()));
             }
         }
@@ -536,17 +541,22 @@ public class UndoBarController extends LinearLayout {
     /**
      * UndoBar Builder
      */
-    public static class UndoBar {
+    public static class UndoBar implements Parcelable {
 
-        private final Activity activity;
+
+        private Activity activity;
+        private UndoListener listener;
+
         private UndoBarStyle style;
         private CharSequence message;
         private long duration;
         private Parcelable undoToken;
-        private UndoListener listener;
+
         private int translucent = -1;
         private boolean colorDrawable = true;
         private boolean noIcon = false;
+        public boolean immediate;
+
 
         public UndoBar(@NonNull Activity activity) {
             this.activity = activity;
@@ -660,9 +670,13 @@ public class UndoBarController extends LinearLayout {
             if (duration > 0) {
                 style.duration = duration;
             }
+            immediate = !anim;
             UndoBarController bar = UndoBarController.getBar(activity, this);
-            bar.colorDrawable = colorDrawable;
-            bar.showUndoBar(!anim, message, undoToken);
+            Message msg = new Message(style, message, duration, undoToken, translucent, colorDrawable, noIcon, immediate);
+            if (bar.mShowing)
+                bar.addMessage(msg);
+            else
+                bar.showUndoBar(msg);
             return bar;
         }
 
@@ -675,6 +689,18 @@ public class UndoBarController extends LinearLayout {
             return show(true);
         }
 
+        public void onSaveInstanceState(@NonNull Bundle saveState) {
+            saveState.putParcelable("undobar", UndoBarController.getBar(activity, this).onSaveInstanceState());
+        }
+
+        public void onRestoreInstanceState(@NonNull Bundle loadState) {
+            UndoBarController undobar = UndoBarController.getBar(activity, this);
+            undobar.onRestoreInstanceState(loadState.getParcelable("undobar"));
+            if (undobar.currentMessage != null) {
+                undobar.showUndoBar(undobar.currentMessage);
+            }
+        }
+
         /**
          * Hide all undo bar immediately
          */
@@ -682,7 +708,106 @@ public class UndoBarController extends LinearLayout {
         public void clear() {
             UndoBarController.clear(activity);
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(this.style, 0);
+            TextUtils.writeToParcel(this.message, dest, flags);
+            dest.writeLong(this.duration);
+            dest.writeParcelable(this.undoToken, 0);
+            dest.writeInt(this.translucent);
+            dest.writeByte(colorDrawable ? (byte) 1 : (byte) 0);
+            dest.writeByte(noIcon ? (byte) 1 : (byte) 0);
+        }
+
+        private UndoBar(Parcel in) {
+            this.style = in.readParcelable(UndoBarStyle.class.getClassLoader());
+            this.message = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+            this.duration = in.readLong();
+            this.undoToken = in.readParcelable(Parcelable.class.getClassLoader());
+            this.translucent = in.readInt();
+            this.colorDrawable = in.readByte() != 0;
+            this.noIcon = in.readByte() != 0;
+        }
+
+        public static final Parcelable.Creator<UndoBar> CREATOR = new Parcelable.Creator<UndoBar>() {
+            public UndoBar createFromParcel(Parcel source) {
+                return new UndoBar(source);
+            }
+
+            public UndoBar[] newArray(int size) {
+                return new UndoBar[size];
+            }
+        };
     }
+
+
+    private static class Message implements Parcelable {
+        private UndoBarStyle style;
+        private CharSequence message;
+        private long duration;
+        private Parcelable undoToken;
+        private int translucent = -1;
+        private boolean colorDrawable = true;
+        private boolean noIcon = false;
+        public boolean immediate;
+
+
+        private Message(UndoBarStyle style, CharSequence message, long duration, Parcelable undoToken, int translucent, boolean colorDrawable, boolean noIcon, boolean immediate) {
+            this.style = style;
+            this.message = message;
+            this.duration = duration;
+            this.undoToken = undoToken;
+            this.translucent = translucent;
+            this.colorDrawable = colorDrawable;
+            this.noIcon = noIcon;
+            this.immediate = immediate;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(this.style, 0);
+            TextUtils.writeToParcel(this.message, dest, flags);
+            dest.writeLong(this.duration);
+            dest.writeParcelable(this.undoToken, 0);
+            dest.writeInt(this.translucent);
+            dest.writeByte(colorDrawable ? (byte) 1 : (byte) 0);
+            dest.writeByte(noIcon ? (byte) 1 : (byte) 0);
+            dest.writeByte(immediate ? (byte) 1 : (byte) 0);
+        }
+
+        private Message(Parcel in) {
+            this.style = in.readParcelable(UndoBarStyle.class.getClassLoader());
+            this.message = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+            this.duration = in.readLong();
+            this.undoToken = in.readParcelable(Parcelable.class.getClassLoader());
+            this.translucent = in.readInt();
+            this.colorDrawable = in.readByte() != 0;
+            this.noIcon = in.readByte() != 0;
+            this.immediate = in.readByte() != 0;
+        }
+
+        public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+            public Message createFromParcel(Parcel source) {
+                return new Message(source);
+            }
+
+            public Message[] newArray(int size) {
+                return new Message[size];
+            }
+        };
+    }
+
 
 
 }

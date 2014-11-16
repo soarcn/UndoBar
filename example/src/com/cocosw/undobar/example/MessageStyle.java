@@ -21,6 +21,7 @@ public class MessageStyle extends Activity {
 
     private EditText mEmailView;
     private EditText mPasswordView;
+    private UndoBarController.UndoBar undobar;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -50,12 +51,14 @@ public class MessageStyle extends Activity {
                     }
                 }
         );
+        undobar = new UndoBarController.UndoBar(this);
+
     }
 
     private void attemptLogin() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(" Hello "+ mEmailView.getText() );
-        ssb.setSpan( new ImageSpan(this, android.R.drawable.star_on), 0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-        new UndoBarController.UndoBar(MessageStyle.this).message(ssb).show();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(" Hello " + mEmailView.getText());
+        ssb.setSpan(new ImageSpan(this, android.R.drawable.star_on), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        undobar.message(ssb).show();
     }
 
 
