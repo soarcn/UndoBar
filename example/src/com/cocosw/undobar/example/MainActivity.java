@@ -1,15 +1,15 @@
 package com.cocosw.undobar.example;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.cocosw.undobar.example.R.id;
 import com.cocosw.undobar.example.R.layout;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -20,7 +20,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(id.button3).setOnClickListener(this);
 		findViewById(id.button4).setOnClickListener(this);
         findViewById(id.button5).setOnClickListener(this);
-	}
+        findViewById(id.button6).setOnClickListener(this);
+    }
 
 	@Override
 	public void onClick(final View v) {
@@ -40,6 +41,9 @@ public class MainActivity extends Activity implements OnClickListener {
         case id.button5:
             startActivity(new Intent(this, SnackBar.class));
             break;
+            case id.button6:
+                startActivity(new Intent(this, KitKatStyle.class));
+                break;
 		default:
 			break;
 		}

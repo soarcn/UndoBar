@@ -1,9 +1,11 @@
 package com.cocosw.undobar.example;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -12,34 +14,29 @@ import com.cocosw.undobar.UndoBarController;
 
 import java.util.Arrays;
 
-public class UndoStyle extends ListActivity implements UndoBarController.AdvancedUndoListener {
+public class UndoStyle extends ActionBarActivity implements UndoBarController.AdvancedUndoListener, AdapterView.OnItemClickListener {
+
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(this,
+        setContentView(R.layout.ui_main);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(mAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1,
                 Arrays.asList(new String[]{"Item 1", "Item 2", "Item 3",
                         "Item 4", "Item 5", "Item 6", "Item 7", "Item 8",
                         "Item 9", "Item 10", "Item 11", "Item 12", "Item 13",
                         "Item 14", "Item 15",})
         ));
+        listView.setOnItemClickListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         new UndoBarController.UndoBar(this).clear();
-    }
-
-    @Override
-    protected void onListItemClick(final ListView l, final View v,
-                                   final int position, final long id) {
-        final Bundle b = new Bundle();
-        b.putInt("index", position);
-
-        new UndoBarController.UndoBar(this).message(getListAdapter().getItem(position)
-                + " was selected").listener(this).token(b).show();
     }
 
     @Override
@@ -61,7 +58,16 @@ public class UndoStyle extends ListActivity implements UndoBarController.Advance
     }
 
     @Override
-    public void onClear() {
+    public void onClear(@Nullable Parcelable[] token) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final Bundle b = new Bundle();
+        b.putInt("index", position);
+
+        new UndoBarController.UndoBar(this).message(mAdapter.getItem(position)
+                + " was selected").listener(this).token(b).show();
     }
 }

@@ -1,8 +1,8 @@
 package com.cocosw.undobar.example;
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
@@ -17,7 +17,7 @@ import com.cocosw.undobar.UndoBarController;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class MessageStyle extends Activity {
+public class MessageStyle extends ActionBarActivity {
 
     private EditText mEmailView;
     private EditText mPasswordView;

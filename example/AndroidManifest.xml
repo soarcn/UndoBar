@@ -17,20 +17,24 @@
         </activity>
         <activity
             android:name="com.cocosw.undobar.example.UndoStyle"
-            android:label="@string/title_activity_undo_style"></activity>
+            android:label="@string/title_activity_undo_style" />
         <activity
             android:name="com.cocosw.undobar.example.RetryStyle"
-            android:label="RetryStyle"></activity>
+            android:label="RetryStyle" />
         <activity
             android:name="com.cocosw.undobar.example.MessageStyle"
             android:label="@string/title_activity_message_style"
-            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
             android:name="com.cocosw.undobar.example.Customize"
-            android:label="@string/title_activity_customize"></activity>
+            android:label="@string/title_activity_customize" />
         <activity
             android:theme="@style/MaterialTheme"
             android:name="com.cocosw.undobar.example.SnackBar"
-            android:label="@string/title_activity_customize"></activity>
+            android:label="SnackBar" />
+        <activity
+            android:theme="@style/KitKatTheme"
+            android:name="com.cocosw.undobar.example.KitKatStyle"
+            android:label="KitKatStyle" />
     </application>
 </manifest>

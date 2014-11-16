@@ -44,10 +44,19 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/button6"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button4"
+        android:layout_centerHorizontal="true"
+        android:text="KitKat style"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button6"
         android:layout_centerHorizontal="true"
         android:text="Material style"
         tools:ignore="HardcodedText" />

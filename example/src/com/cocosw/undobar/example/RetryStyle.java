@@ -2,9 +2,9 @@ package com.cocosw.undobar.example;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
 import com.cocosw.undobar.UndoBarController;
@@ -21,8 +21,8 @@ import com.github.kevinsawicki.wishlist.ThrowableLoader;
  * @author soar
  * 
  */
-public class RetryStyle extends FragmentActivity implements UndoListener,
-		LoaderCallbacks<Void> {
+public class RetryStyle extends ActionBarActivity implements UndoListener,
+        LoaderCallbacks<Void> {
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
