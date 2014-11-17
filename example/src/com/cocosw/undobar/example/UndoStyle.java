@@ -3,7 +3,10 @@ package com.cocosw.undobar.example;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,9 +37,22 @@ public class UndoStyle extends ActionBarActivity implements UndoBarController.Ad
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add(0, 0, 0, "Clear");
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        new UndoBarController.UndoBar(this).clear();
+        return true;
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-        new UndoBarController.UndoBar(this).clear();
+
     }
 
     @Override
@@ -58,8 +74,12 @@ public class UndoStyle extends ActionBarActivity implements UndoBarController.Ad
     }
 
     @Override
-    public void onClear(@Nullable Parcelable[] token) {
-
+    public void onClear(@Nullable Parcelable[] tokens) {
+        for (Parcelable token : tokens) {
+            final int position = ((Bundle) token).getInt("index");
+            Toast.makeText(this.getApplicationContext(), "UndoBar cleared! index " + position,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -62,11 +62,7 @@ public class SnackBar extends ActionBarActivity implements UndoBarController.Adv
 
     @Override
     public void onClear(Parcelable[] tokens) {
-        for (Parcelable token : tokens) {
-            final int position = ((Bundle) token).getInt("index");
-            Toast.makeText(this.getApplicationContext(), "UndoBar cleared! index " + position,
-                    Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Override
