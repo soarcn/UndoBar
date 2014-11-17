@@ -282,9 +282,19 @@ public class UndoBarController extends LinearLayout {
         final UndoBarController v = UndoBarController.getView(activity);
         if (v != null) {
             v.setVisibility(View.GONE);
+            v.mShowing = false;
             v.mHideHandler.removeCallbacks(v.mHideRunnable);
             if (v.listener instanceof AdvancedUndoListener) {
-                ((AdvancedUndoListener) v.listener).onClear();
+                if (v.currentMessage == null)
+                    ((AdvancedUndoListener) v.listener).onClear(new Parcelable[]{});
+                else {
+                    Parcelable[] parcels = new Parcelable[v.mMessages.size() + 1];
+                    parcels[0] = v.currentMessage.undoToken;
+                    for (int i = 0; i < v.mMessages.size(); i++) {
+                        parcels[i + 1] = v.mMessages.get(i).undoToken;
+                    }
+                    ((AdvancedUndoListener) v.listener).onClear(parcels);
+                }
             }
         }
     }
@@ -392,6 +402,8 @@ public class UndoBarController extends LinearLayout {
         final Message next = mMessages.poll();
         if (immediate) {
             setVisibility(View.GONE);
+            currentMessage = null;
+            mShowing = false;
             if (next != null)
                 showUndoBar(next);
         } else {
@@ -409,6 +421,8 @@ public class UndoBarController extends LinearLayout {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
+                    currentMessage = null;
+                    mShowing = false;
                     if (next != null)
                         showUndoBar(next);
                 }
@@ -421,8 +435,6 @@ public class UndoBarController extends LinearLayout {
             startAnimation(anim);
             setVisibility(View.GONE);
         }
-        currentMessage = null;
-        mShowing = false;
     }
 
     @Override
@@ -534,7 +546,7 @@ public class UndoBarController extends LinearLayout {
         /**
          * The callback function will be called when the clear function been called
          */
-        void onClear();
+        void onClear(@NonNull Parcelable[] token);
     }
 
 
@@ -560,6 +572,18 @@ public class UndoBarController extends LinearLayout {
 
         public UndoBar(@NonNull Activity activity) {
             this.activity = activity;
+        }
+
+        private void init() {
+            style = null;
+            message = null;
+            duration = 0;
+            undoToken = null;
+
+            translucent = -1;
+            colorDrawable = true;
+            noIcon = false;
+            immediate = false;
         }
 
         public UndoBar style(@NonNull UndoBarStyle style) {
@@ -677,6 +701,7 @@ public class UndoBarController extends LinearLayout {
                 bar.addMessage(msg);
             else
                 bar.showUndoBar(msg);
+            init();
             return bar;
         }
 
