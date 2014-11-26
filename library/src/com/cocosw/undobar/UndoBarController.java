@@ -123,6 +123,9 @@ public class UndoBarController extends LinearLayout {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(final View view) {
+                        // #44
+                        if (!mShowing)
+                            return;
                         if (listener != null) {
                             listener.onUndo(currentMessage.undoToken);
                         }
@@ -832,7 +835,6 @@ public class UndoBarController extends LinearLayout {
             }
         };
     }
-
 
 
 }
