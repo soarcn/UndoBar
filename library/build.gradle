@@ -1,32 +1,5 @@
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply from: '../config/android-library.gradle'
-apply from: '../config/maven_push.gradle'
+apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/legacy-android-library.gradle'
 
 dependencies {
-    compile 'com.android.support:support-annotations:20.0.0'
+    compile 'com.android.support:support-annotations:21.0.0'
 }
-
-android {
-    compileSdkVersion 19
-    buildToolsVersion '21.1.1'
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            res.srcDirs = ['res']
-        }
-    }
-
-    defaultConfig {
-        minSdkVersion 8
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-}
-
-
