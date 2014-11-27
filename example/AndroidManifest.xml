@@ -27,7 +27,8 @@
             android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity
             android:name="com.cocosw.undobar.example.Customize"
-            android:label="@string/title_activity_customize" />
+            android:label="@string/title_activity_customize"
+            android:theme="@style/ClassicTheme" />
         <activity
             android:theme="@style/MaterialTheme"
             android:name="com.cocosw.undobar.example.SnackBar"
