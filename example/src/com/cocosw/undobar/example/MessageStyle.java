@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,18 +28,11 @@ public class MessageStyle extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int id = getResources().getIdentifier("config_enableTranslucentDecor", "bool", "android");
-            if (id != 0 && getResources().getBoolean(id)) { // Translucent available
-                Window w = getWindow();
-                w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-                //   w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            }
-            findViewById(R.id.login_form).setPadding(0, 100, 0, 0);
-        }
+
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_message_style);
-
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mEmailView = (EditText) findViewById(R.id.email);
         mEmailView.setText("Geek");
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -52,7 +46,15 @@ public class MessageStyle extends ActionBarActivity {
                 }
         );
         undobar = new UndoBarController.UndoBar(this);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int id = getResources().getIdentifier("config_enableTranslucentDecor", "bool", "android");
+            if (id != 0 && getResources().getBoolean(id)) { // Translucent available
+                Window w = getWindow();
+                w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                //   w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            findViewById(R.id.login_form).setPadding(0, 200, 0, 0);
+        }
     }
 
     private void attemptLogin() {
@@ -61,5 +63,10 @@ public class MessageStyle extends ActionBarActivity {
         undobar.message(ssb).show();
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 }

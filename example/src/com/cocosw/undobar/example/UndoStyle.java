@@ -25,6 +25,8 @@ public class UndoStyle extends ActionBarActivity implements UndoBarController.Ad
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_main);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(mAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1,
@@ -43,9 +45,13 @@ public class UndoStyle extends ActionBarActivity implements UndoBarController.Ad
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        new UndoBarController.UndoBar(this).clear();
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        else
+            new UndoBarController.UndoBar(this).clear();
         return true;
     }
 

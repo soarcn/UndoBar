@@ -4,6 +4,7 @@ package com.cocosw.undobar.example;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,8 @@ public class SnackBar extends ActionBarActivity implements UndoBarController.Adv
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_main);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(mAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1,
@@ -33,6 +36,13 @@ public class SnackBar extends ActionBarActivity implements UndoBarController.Adv
         ));
         listView.setOnItemClickListener(this);
         undobar = new UndoBarController.UndoBar(this).listener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

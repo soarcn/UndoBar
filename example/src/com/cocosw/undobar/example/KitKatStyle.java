@@ -3,6 +3,7 @@ package com.cocosw.undobar.example;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ public class KitKatStyle extends ActionBarActivity implements UndoBarController.
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_customize);
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
 
@@ -32,4 +35,10 @@ public class KitKatStyle extends ActionBarActivity implements UndoBarController.
         Toast.makeText(this, "Hello KitKat", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 }

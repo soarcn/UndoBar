@@ -4,6 +4,7 @@ import android.R.string;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,7 +19,9 @@ public class Customize extends ActionBarActivity implements UndoListener {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final UndoBarStyle style = new UndoBarStyle(drawable.button, string.ok,
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final UndoBarStyle style = new UndoBarStyle(drawable.button, string.ok,
                 drawable.g, 2000);
         setContentView(R.layout.activity_customize);
 		findViewById(id.button1).setOnClickListener(new View.OnClickListener() {
@@ -35,4 +38,10 @@ public class Customize extends ActionBarActivity implements UndoListener {
 		Toast.makeText(this, "Hello Geek", Toast.LENGTH_SHORT).show();
 	}
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 }

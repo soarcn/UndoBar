@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.cocosw.undobar.UndoBarController;
@@ -27,7 +28,9 @@ public class RetryStyle extends ActionBarActivity implements UndoListener,
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(layout.retry);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(layout.retry);
 		getSupportLoaderManager().initLoader(0, null, this);
 	}
 
@@ -48,6 +51,13 @@ public class RetryStyle extends ActionBarActivity implements UndoListener,
 			}
 		};
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 
 	@Override
 	public void onLoadFinished(final Loader<Void> arg0, final Void arg1) {
