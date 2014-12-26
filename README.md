@@ -1,6 +1,6 @@
 UndoBar
 =======
-![Travis-ci](https://travis-ci.org/soarcn/UndoBar.svg) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BottomSheet-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1044)
+![Travis-ci](https://travis-ci.org/soarcn/UndoBar.svg)
 
 This is a implementation for Android advanced UI pattern undo-bar, used in Gmail app.
 
