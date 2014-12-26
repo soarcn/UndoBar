@@ -4,6 +4,9 @@ jdk:
  - oraclejdk7
  - oraclejdk8
 
+before_install:
+ - chmod +x gradlew
+
 android:
   components:
     - build-tools-21.1.2
