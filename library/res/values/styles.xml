@@ -57,15 +57,18 @@
 
     <!-- Classic styles. -->
 
-    <style name="UndoBarClassic">
+    <style name="UndoBarLayout">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="UndoBarClassic" parent="UndoBarLayout">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:maxHeight">150dp</item>
         <item name="android:layout_gravity">bottom</item>
-        <item name="android:layout_marginLeft">@dimen/marginLeft</item>
-        <item name="android:layout_marginRight">@dimen/marginRight</item>
-        <item name="android:layout_marginBottom">@dimen/marginBottom</item>
+        <item name="android:layout_marginLeft">@dimen/undobarMarginLeft</item>
+        <item name="android:layout_marginRight">@dimen/undobarMarginRight</item>
+        <item name="android:layout_marginBottom">@dimen/undobarMarginBottom</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/undobar</item>
         <item name="android:clickable">true</item>
@@ -143,7 +146,7 @@
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:layout_marginRight">0dp</item>
         <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:background">#FF323232</item>
+        <item name="android:background">@drawable/undobar_material_bg</item>
         <item name="android:maxHeight">80dp</item>
         <item name="android:inAnimation">@anim/undobar_material_in_anim</item>
         <item name="android:outAnimation">@anim/undobar_material_out_anim</item>

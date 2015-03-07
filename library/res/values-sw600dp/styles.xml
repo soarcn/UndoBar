@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UndoBarLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">288dp</item>
+        <item name="android:maxWidth">568dp</item>
+    </style>
+
+    <style name="UndoBarMaterial" parent="UndoBarClassic">
+        <item name="android:padding">0.0dip</item>
+        <item name="android:background">@drawable/undobar_material_bg</item>
+        <item name="android:maxHeight">80dp</item>
+        <item name="android:inAnimation">@anim/undobar_material_in_anim</item>
+        <item name="android:outAnimation">@anim/undobar_material_out_anim</item>
+    </style>
+
+</resources>
