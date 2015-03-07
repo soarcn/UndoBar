@@ -2,9 +2,7 @@ UndoBar
 =======
 [![Build Status](https://travis-ci.org/soarcn/UndoBar.svg?branch=master)](https://travis-ci.org/soarcn/UndoBar)
 
-This is a implementation for Android advanced UI pattern undo-bar, used in Gmail app.
-
-UndoBar was modified from Roman(@romannurik)'s undobar concept (https://code.google.com/p/romannurik-code/). I backported it to Android 2.x and made it easier to use.
+Android Library that implements Snackbars (former known as Undobar) from Google's Material Design documentation.
 
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true)
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/redo.png?raw=true)
@@ -48,9 +46,21 @@ API
     ```
 
 - UndoBar support customize style with background/icon/duration/animation attribution.
-- UndoBar provides 3 default styles. You can use them for different purposes like undo,refresh, or just use it as replacement of toasts.
-- UndoBar will switch to KitKat look and feel in API-19 target and after.
+
 - UndoBar will determine if tranlucent mode(4.4) is using and adjust its position.
+
+
+Style
+========
+
+- UndoBar provides 3 default styles. You can use them for different purposes like undo,refresh, or just use it as replacement of toasts.
+ For example, you can use retry style in this way.
+
+    ``` java
+    new UndoBarController.UndoBar(this).message(loader.getException().getMessage()).style(UndoBarController.RETRYSTYLE).listener(this).show();
+    ```
+
+- UndoBar will switch to KitKat L&F in API-19 target and Material design in API20+.
 - You can set theme in your appliation to change the look and feel. For example, you can use following lines in your style.xml to always use material style UndoBar.
 
     ```xml
@@ -58,6 +68,26 @@ API
         <item name="undoBarStyle">@style/UndoBarMaterialStyle</item>
     </style>
     ```
+
+- You can change undobar style completely by define your own style
+
+    ```xml
+        <style name="UndoBarClassicStyle">
+            <item name="containerStyle">@style/UndoBarClassic</item>
+            <item name="messageStyle">@style/UndoBarMessageClassic</item>
+            <item name="buttonStyle">@style/UndoBarButtonClassic</item>
+            <item name="dividerStyle">@style/UndoBarDividerClassic</item>
+            <item name="inAnimation">@anim/undobar_classic_in_anim</item>
+            <item name="outAnimation">@anim/undobar_classic_out_anim</item>
+        </style>
+    ```
+
+Advanced usage
+======
+
+- Using UndoBarController.AdvancedUndoListener if you need to get notification when UndoBar was cleared or hidden.
+- UndoBar is designed to dynamically add to activity viewgroup, so you need to handle screen-rotation by your self. Check [this](https://github.com/soarcn/UndoBar/blob/master/example/src/com/cocosw/undobar/example/SnackBar.java) example to see more.
+
 
 Contribute
 =======
@@ -68,7 +98,7 @@ Contribute
 License
 =======
 
-    Copyright 2011, 2014 Liao Kai
+    Copyright 2011, 2015 Kai Liao
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
