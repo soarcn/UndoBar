@@ -2,5 +2,5 @@ apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/legacy-andro
 apply from: 'https://raw.githubusercontent.com/soarcn/gradle/master/maven_push.gradle'
 
 dependencies {
-    compile 'com.android.support:support-annotations:21.0.0'
+    compile 'com.android.support:support-annotations:21.0.3'
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginLeft">24dp</dimen>
+    <dimen name="marginRight">24dp</dimen>
+    <dimen name="marginBottom">24dp</dimen>
+    <dimen name="undoBarCornerRadius">2dp</dimen>
+</resources>

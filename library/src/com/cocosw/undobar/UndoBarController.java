@@ -302,6 +302,9 @@ public class UndoBarController extends LinearLayout {
         }
     }
 
+    private static boolean isTablet(Context context) {
+        return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    }
 
     /**
      * Deprecated, Change the default In/Out animation
