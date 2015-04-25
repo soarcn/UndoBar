@@ -29,30 +29,30 @@
     <style name="UndoBarDefaultStyle" parent="UndoBarClassicStyle" />
 
     <style name="UndoBarClassicStyle">
-        <item name="containerStyle">@style/UndoBarClassic</item>
-        <item name="messageStyle">@style/UndoBarMessageClassic</item>
-        <item name="buttonStyle">@style/UndoBarButtonClassic</item>
-        <item name="dividerStyle">@style/UndoBarDividerClassic</item>
-        <item name="inAnimation">@anim/undobar_classic_in_anim</item>
-        <item name="outAnimation">@anim/undobar_classic_out_anim</item>
+        <item name="ub_containerStyle">@style/UndoBarClassic</item>
+        <item name="ub_messageStyle">@style/UndoBarMessageClassic</item>
+        <item name="ub_buttonStyle">@style/UndoBarButtonClassic</item>
+        <item name="ub_dividerStyle">@style/UndoBarDividerClassic</item>
+        <item name="ub_inAnimation">@anim/undobar_classic_in_anim</item>
+        <item name="ub_outAnimation">@anim/undobar_classic_out_anim</item>
     </style>
 
     <style name="UndoBarKitKatStyle">
-        <item name="containerStyle">@style/UndoBarKitKat</item>
-        <item name="messageStyle">@style/UndoBarMessageKitKat</item>
-        <item name="buttonStyle">@style/UndoBarButtonKitKat</item>
-        <item name="dividerStyle">@style/UndoBarDividerClassic</item>
-        <item name="inAnimation">@anim/undobar_classic_in_anim</item>
-        <item name="outAnimation">@anim/undobar_classic_out_anim</item>
+        <item name="ub_containerStyle">@style/UndoBarKitKat</item>
+        <item name="ub_messageStyle">@style/UndoBarMessageKitKat</item>
+        <item name="ub_buttonStyle">@style/UndoBarButtonKitKat</item>
+        <item name="ub_dividerStyle">@style/UndoBarDividerClassic</item>
+        <item name="ub_inAnimation">@anim/undobar_classic_in_anim</item>
+        <item name="ub_outAnimation">@anim/undobar_classic_out_anim</item>
     </style>
 
     <style name="UndoBarMaterialStyle">
-        <item name="containerStyle">@style/UndoBarMaterial</item>
-        <item name="messageStyle">@style/UndoBarMessageMaterial</item>
-        <item name="buttonStyle">@style/UndoBarButtonMaterial</item>
-        <item name="dividerStyle">@style/UndoBarNoDivider</item>
-        <item name="inAnimation">@anim/undobar_material_in_anim</item>
-        <item name="outAnimation">@anim/undobar_material_out_anim</item>
+        <item name="ub_containerStyle">@style/UndoBarMaterial</item>
+        <item name="ub_messageStyle">@style/UndoBarMessageMaterial</item>
+        <item name="ub_buttonStyle">@style/UndoBarButtonMaterial</item>
+        <item name="ub_dividerStyle">@style/UndoBarNoDivider</item>
+        <item name="ub_inAnimation">@anim/undobar_material_in_anim</item>
+        <item name="ub_outAnimation">@anim/undobar_material_out_anim</item>
     </style>
 
     <!-- Classic styles. -->

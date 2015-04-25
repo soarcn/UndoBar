@@ -110,7 +110,7 @@ public class UndoBarController extends LinearLayout {
         context.getTheme().applyStyle(style, true);
         ta.recycle();
 
-        ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.inAnimation, R.attr.outAnimation});
+        ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.ub_inAnimation, R.attr.ub_outAnimation});
         inAnimation = AnimationUtils.loadAnimation(context, ta.getResourceId(0, R.anim.undobar_classic_in_anim));
         outAnimation = AnimationUtils.loadAnimation(context, ta.getResourceId(1, R.anim.undobar_classic_out_anim));
 
