@@ -2,6 +2,11 @@ UndoBar
 =======
 [![Build Status](https://travis-ci.org/soarcn/UndoBar.svg?branch=master)](https://travis-ci.org/soarcn/UndoBar)
 
+This lib is deprecated in favor of Google's Design Support Library which includes a Snackbar and is no longer being developed.
+
+Thanks for all your support!
+
+
 Android Library that implements Snackbars (former known as Undobar) from Google's Material Design documentation.
 
 ![UndoBar Sample](https://github.com/soarcn/UndoBar/blob/master/art/kitkat.png?raw=true)
