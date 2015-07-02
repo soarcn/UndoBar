@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,7 +23,7 @@ import com.github.kevinsawicki.wishlist.ThrowableLoader;
  * @author soar
  * 
  */
-public class RetryStyle extends ActionBarActivity implements UndoListener,
+public class RetryStyle extends AppCompatActivity implements UndoListener,
         LoaderCallbacks<Void> {
 
 	@Override

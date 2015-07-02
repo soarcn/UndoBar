@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/_undobar"
-    style="?containerStyle">
+    style="?ub_containerStyle">
 
     <TextView
         android:id="@+id/undobar_message"
-        style="?messageStyle" />
+        style="?ub_messageStyle" />
 
     <View
         android:id="@+id/undobar_divider"
-        style="?dividerStyle"/>
+        style="?ub_dividerStyle"/>
 
     <Button
         android:id="@+id/undobar_button"
-        style="?buttonStyle" />
+        style="?ub_buttonStyle" />
 </LinearLayout>

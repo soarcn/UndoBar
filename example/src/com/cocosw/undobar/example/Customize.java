@@ -4,6 +4,7 @@ import android.R.string;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import com.cocosw.undobar.UndoBarStyle;
 import com.cocosw.undobar.example.R.drawable;
 import com.cocosw.undobar.example.R.id;
 
-public class Customize extends ActionBarActivity implements UndoListener {
+public class Customize extends AppCompatActivity implements UndoListener {
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {

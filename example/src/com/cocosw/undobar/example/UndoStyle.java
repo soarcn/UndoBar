@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,7 @@ import com.cocosw.undobar.UndoBarController;
 
 import java.util.Arrays;
 
-public class UndoStyle extends ActionBarActivity implements UndoBarController.AdvancedUndoListener, AdapterView.OnItemClickListener {
+public class UndoStyle extends AppCompatActivity implements UndoBarController.AdvancedUndoListener, AdapterView.OnItemClickListener {
 
     private ArrayAdapter<String> mAdapter;
 

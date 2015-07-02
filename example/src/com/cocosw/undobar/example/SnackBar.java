@@ -4,6 +4,7 @@ package com.cocosw.undobar.example;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +16,7 @@ import com.cocosw.undobar.UndoBarController;
 
 import java.util.Arrays;
 
-public class SnackBar extends ActionBarActivity implements UndoBarController.AdvancedUndoListener, AdapterView.OnItemClickListener {
+public class SnackBar extends AppCompatActivity implements UndoBarController.AdvancedUndoListener, AdapterView.OnItemClickListener {
 
     private UndoBarController.UndoBar undobar;
     private ArrayAdapter<String> mAdapter;
