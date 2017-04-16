@@ -47,6 +47,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cocosw.swipehelper.Container;
 import com.cocosw.undobar.R.drawable;
 import com.cocosw.undobar.R.id;
 import com.cocosw.undobar.R.string;
@@ -54,7 +55,7 @@ import com.cocosw.undobar.R.string;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 
-public class UndoBarController extends LinearLayout {
+public class UndoBarController extends Container {
 
     private static final String SAVED_STATE = "_state_undobar";
     private static final String STATE_CURRENT_MESSAGE = "_state_undobar_current";
